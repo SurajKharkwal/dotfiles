@@ -65,7 +65,7 @@ return {
       layout_strategy = "horizontal",
       layout_config = { prompt_position = "bottom" },
       sorting_strategy = "descending",
-      file_ignore_patterns = { "node_modules", "type", "%.git/" },
+      file_ignore_patterns = { "node_modules", "type", "%.git/", ".git", ".git/" },
       winblend = 0,
       mappings = {
         n = {},
