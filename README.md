@@ -18,4 +18,4 @@ stow <name>  #for ex: stow nvim
 
 ## License
 
-[Mit](#).
+[Mit](https://github.com/SurajKharkwal/dotfiles/blob/main/LICENSE.md).
