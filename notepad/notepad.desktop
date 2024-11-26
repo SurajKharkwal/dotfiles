@@ -6,6 +6,8 @@ GenericName=Terminal emulator
 Comment=Open Neovim in Note Directory
 TryExec=kitty
 StartupNotify=true
-Exec=kitty -e sh -c 'cd ~/Notepad && nvim && :new'
-Icon=/home/flying_hawk/dotfiles-git/notepad/notepad.png
+Exec=kitty -e sh -c 'cd ~/Notepad && file="Untitled.txt"; coutert=1; while [ jnvim && :new'
+Icon=/home/flyinghawk/dotfiles/notepad/notepad.png
 Categories=Utility;
+
+

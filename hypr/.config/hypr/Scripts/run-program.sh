@@ -24,11 +24,18 @@ java() {
   javac "$ABSOLUTE_PATH" && java "${ABSOLUTE_PATH%.*}"
 }
 
+# Function to run Rust files
+rust() {
+  rustc "$ABSOLUTE_PATH" -o temp_rust_exec && ./temp_rust_exec
+  rm -f temp_rust_exec
+}
+
 # Check the file extension and call the appropriate function
 case "${FILE_NAME##*.}" in
 cpp) cpp ;;
 sql) mysql ;;
 py) python ;;
 java) java ;;
+rs) rust ;;
 *) echo "Unsupported file type." ;;
 esac
