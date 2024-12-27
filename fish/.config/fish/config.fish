@@ -53,6 +53,7 @@ end
 # Fish Startup Logic (neofetch display only once per reboot)
 if status is-interactive
   if not test -f /tmp/fish_statup
+    echo " "
     neofetch
     touch /tmp/fish_statup
   end

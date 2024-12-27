@@ -14,6 +14,7 @@ local options = {
     graphql = { "prettier" },
     liquid = { "prettier" },
     python = { "isort", "black" },
+    rust = { "rustfmt" },
   },
   format_on_save = {
     -- These options will be passed to conform.format()

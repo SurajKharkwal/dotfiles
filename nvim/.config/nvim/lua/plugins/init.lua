@@ -1,4 +1,7 @@
 return {
+  require(
+    "plugins.telescope"
+  ),
   {
     "stevearc/conform.nvim",
     event = "BufWritePre",
@@ -85,4 +88,5 @@ return {
 
   "nvzone/volt",
   { "nvzone/timerly", cmd = "TimerlyToggle" },
+
 }
