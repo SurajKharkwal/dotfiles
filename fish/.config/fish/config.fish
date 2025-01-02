@@ -2,6 +2,13 @@
 # Greeting
 set -g fish_greeting ''
 
+
+set -Ux GTK_THEME Adwaita-dark # for dark theme
+
+# Edit keybindings for Fish shell
+bind \cn up       # Ctrl+K moves up in the history (for example)
+bind \cp down     # Ctrl+J moves down
+
 # Exported Variables
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH

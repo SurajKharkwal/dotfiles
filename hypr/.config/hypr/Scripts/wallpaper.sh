@@ -24,8 +24,6 @@ WallpaperSelector() {
   current_wallpaper_name=$(basename "$(swww query)")
 
   # Style and directory for Rofi theme
-  style="style-13"
-  dir="$HOME/.config/rofi/launchers/type-2"
 
   # Generate the Rofi menu with icons
   rofi_list=""
@@ -38,7 +36,7 @@ WallpaperSelector() {
     fi
   done <<<"$WALLPAPERS"
 
-  selected_wallpaper=$(echo -e "$rofi_list" | rofi -dmenu -p "Select Wallpaper:" -theme "${dir}/${style}" -markup-rows)
+  selected_wallpaper=$(echo -e "$rofi_list" | rofi -dmenu -p "Select Wallpaper:" -theme "/home/flyinghawk/.config/hypr//wallpaper.rasi" -markup-rows)
 
   # Check if a wallpaper was chosen
   if [[ -n "$selected_wallpaper" ]]; then
