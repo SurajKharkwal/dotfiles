@@ -14,7 +14,6 @@ configuration {
 	filter: "";
 	scroll-method: 0;
 	normalize-match: true;
-  font: "JetBrains Mono 14";
 	show-icons: true;
 	icon-theme: "Papirus";
 /*	cache-dir: ;*/
@@ -84,7 +83,7 @@ configuration {
 
 	/*---------- Misc setting ----------*/
 	terminal: "rofi-sensible-terminal";
-	font: "Mono 15";
+	font: "Mono 12";
 	sort: false;
 	threads: 0;
 	click-to-exit: true;
