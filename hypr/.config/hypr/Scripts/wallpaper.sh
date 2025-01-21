@@ -4,6 +4,7 @@ USER_INPUT=$1
 WALLPAPER_DIR=~/Wallpapers/
 WALLPAPERS=$(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \))
 ANIMATION_TYPES=("simple" "fade" "left" "right" "top" "bottom" "wipe" "grow" "center" "outer" "random" "wave")
+HYPRLOCK_CONFIG="$HOME/.config/hypr/hyprlock.conf"
 
 WallpaperSlideshow() {
   while true; do
@@ -46,6 +47,11 @@ WallpaperSelector() {
   fi
 }
 
+hyprlockWallpaper() {
+  WALLPAPER=$(echo "$WALLPAPERS" | shuf -n 1)
+  sed -i "s|^ *path *=.*|path = $WALLPAPER |" "$HYPRLOCK_CONFIG"
+}
+
 case $USER_INPUT in
   slideshow)
     WallpaperSlideshow
@@ -56,8 +62,10 @@ case $USER_INPUT in
   select)
     WallpaperSelector
     ;;
+  hyprlock)
+    hyprlockWallpaper
+    ;;
   *)
-    echo "Usage: $0 {slideshow|random|select}"
+    echo "Usage: $0 {slideshow|random|select|hyprlock}"
     ;;
 esac
-
