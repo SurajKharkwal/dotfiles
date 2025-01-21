@@ -1,7 +1,10 @@
 # Dotfiles
 
 This repository contains my personal dotfiles, managed using [GNU Stow](https://www.gnu.org/software/stow/). It includes configuration for various tools and applications, making it easy to set up a new environment.
-
+## To Automate Installation 
+```
+./install.sh
+```
 ## Prerequisites
 
 Make sure you have GNU Stow installed. You can install it using your package manager:
