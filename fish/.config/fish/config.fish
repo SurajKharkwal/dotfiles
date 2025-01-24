@@ -61,7 +61,7 @@ end
 if status is-interactive
   if not test -f /tmp/fish_statup
     echo " "
-    neofetch
+    fastfetch
     touch /tmp/fish_statup
   end
 end
