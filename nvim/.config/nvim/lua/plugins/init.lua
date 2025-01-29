@@ -1,7 +1,4 @@
 return {
-  require(
-    "plugins.telescope"
-  ),
   {
     "stevearc/conform.nvim",
     event = "BufWritePre",

@@ -1,10 +1,7 @@
-
 # Greeting
 set -g fish_greeting ''
 
-
 set -Ux GTK_THEME Adwaita-dark # for dark theme
-
 # Edit keybindings for Fish shell
 bind \cn up       # Ctrl+K moves up in the history (for example)
 bind \cp down     # Ctrl+J moves down
@@ -46,6 +43,7 @@ alias lg="lazygit"
 alias yy="yazi"
 alias et="exit"
 alias run="~/.config/hypr/Scripts/run-program.sh"
+alias mkdir="mkdir -p"
 
 # Yazi Function
 function y
@@ -56,12 +54,12 @@ function y
     end
     rm -f -- "$tmp"
 end
-
-# Fish Startup Logic (neofetch display only once per reboot)
-if status is-interactive
-  if not test -f /tmp/fish_statup
-    echo " "
-    fastfetch
-    touch /tmp/fish_statup
-  end
-end
+#
+## Fish Startup Logic (neofetch display only once per reboot)
+#if status is-interactive
+#  if not test -f /tmp/fish_statup
+#    echo " "
+#    fastfetch
+#    touch /tmp/fish_statup
+#  end
+#end

@@ -56,11 +56,15 @@ M.base46 = {
       require("nvim-tree").setup {
         view = {
           side = "right",
-          width = 25,
+          width = 40,
         },
+        git = { enable = false },
         renderer = {
           group_empty = true,
           root_folder_label = false, -- Disable showing root folder at the top
+          icons = {
+            git = {}                 -- Disable Git icons
+          },
         },
       },
     },

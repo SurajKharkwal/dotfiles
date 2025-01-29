@@ -1,3 +1,8 @@
-/nvim/.config/nvim-back/
+# Ignore everything in nvim/.config/nvim-back
+nvim/.config/nvim-back/
 
+# Ignore everything in fish/.config/fish/
+fish/.config/fish/*
 
+# Allow only config.fish in fish/.config/fish/
+!fish/.config/fish/config.fish
