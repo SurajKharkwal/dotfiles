@@ -44,6 +44,7 @@ alias yy="yazi"
 alias et="exit"
 alias run="~/.config/hypr/Scripts/run-program.sh"
 alias mkdir="mkdir -p"
+alias dot6="~/.config/hypr/Scripts/clg-server.sh"
 
 # Yazi Function
 function y

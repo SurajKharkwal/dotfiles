@@ -9,29 +9,6 @@ local servers = { "html", "cssls", "ts_ls", "clangd", "tailwindcss", "prismals",
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- Emmet-LS configuration
-lspconfig.emmet_ls.setup {
-  capabilities = capabilities,
-  filetypes = {
-    "eruby",
-    "javascriptreact",
-    "less",
-    "sass",
-    "svelte",
-    "pug",
-    "typescriptreact",
-    "vue",
-  },
-  init_options = {
-    html = {
-      options = {
-        -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
-        ["bem.enabled"] = true,
-      },
-    },
-  },
-}
-
 -- General setup for all servers
 local nvlsp = require "nvchad.configs.lspconfig"
 
