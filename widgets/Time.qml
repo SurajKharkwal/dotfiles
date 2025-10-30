@@ -5,7 +5,6 @@ import qs.services
 
 Column {
     id: root
-
     Text {
         id: timeText
         text: "12:00"
@@ -16,6 +15,7 @@ Column {
     Text {
         id: dateText
         text: "Mon, 01 Jan"
+        font.weight: 300
         color: Appearance.colors.onBackground
     }
 

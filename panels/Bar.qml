@@ -27,6 +27,10 @@ PanelWindow {
             anchors.leftMargin: 32
         }
 
+        Workspaces {
+          anchors.centerIn: parent
+        }
+
         ToggleWidgets {
             anchors.right: parent.right
             anchors.rightMargin: 32
