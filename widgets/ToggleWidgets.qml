@@ -42,6 +42,7 @@ Rectangle {
         id: mouseControl
         anchors.fill: parent
         hoverEnabled: true
+        cursorShape: Qt.PointingHandCursor
 
         onEntered: {
             root.color = Appearance.colors.surfaceContainerHigh;

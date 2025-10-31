@@ -18,6 +18,7 @@ PanelWindow {
         implicitWidth: root.implicitWidth
         implicitHeight: 64
         color: Appearance.colors.background
+        // color: "transparent"
         radius: implicitWidth / 2
         layer.enabled: true
 
@@ -28,7 +29,13 @@ PanelWindow {
         }
 
         Workspaces {
-          anchors.centerIn: parent
+            anchors.centerIn: parent
+        }
+
+        Battery {
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+            anchors.rightMargin: 32 + 40 + 20
         }
 
         ToggleWidgets {
