@@ -9,4 +9,9 @@ ShellRoot {
         active: true
         component: Bar {}
     }
+
+    LazyLoader {
+        active: true
+        component: Osd {}
+    }
 }

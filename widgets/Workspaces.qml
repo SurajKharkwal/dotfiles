@@ -4,9 +4,11 @@ import qs.services
 
 Rectangle {
     id: root
-    implicitWidth: 264
+    property int xpad : 20
+    implicitWidth: 270 + xpad 
     implicitHeight: 40
-    radius: height / 2
+    radius: implicitWidth / 2
+    property int elementSize : (implicitWidth-xpad)/10
     color: Appearance.colors.surfaceContainerLow
     antialiasing: true
     MouseArea {
@@ -36,10 +38,9 @@ Rectangle {
                     }
                 }
 
-                property int elementSize: 24
-                implicitWidth: elementSize
-                implicitHeight: elementSize
-                radius: implicitWidth / 2
+                implicitWidth: root.elementSize
+                implicitHeight: root.elementSize
+                radius: root.elementSize / 2
                 color: "transparent"
 
                 Text {
@@ -53,28 +54,26 @@ Rectangle {
 
     Item {
         id: workspaceRowHighlighter
-        anchors.fill: workspaceRow
+        anchors.verticalCenter: parent.verticalCenter
 
         Repeater {
             model: Workspaces.groups
             property int duration: 2000
 
             delegate: Rectangle {
+              anchors.verticalCenter: parent.verticalCenter
                 id: groupHighlight
-                property int elementSize: 24
-                implicitWidth: elementSize
-
-                implicitHeight: elementSize
+                x: firstIndex * (root.elementSize) + root.xpad/2
+                implicitWidth: (ids.length * root.elementSize) + ((ids.length - 1))
+                implicitHeight: root.elementSize
                 radius: implicitWidth / 2
+                opacity: 0.5
                 color: Appearance.colors.primaryContainer
-                opacity: 0.4
 
                 property var ids: modelData
                 property int firstIndex: ids[0] - 1
                 property int lastIndex: ids[ids.length - 1] - 1
 
-                x: firstIndex * (elementSize)
-                width: (ids.length * elementSize) + ((ids.length - 1))
 
                 Behavior on x {
                     NumberAnimation {
@@ -93,11 +92,11 @@ Rectangle {
 
     Rectangle {
         id: focusedRect
-        implicitWidth: 24
-        implicitHeight: 24
+        implicitWidth: root.elementSize
+        implicitHeight: root.elementSize
         anchors.verticalCenter: parent.verticalCenter
         radius: implicitWidth / 2
-        x: Workspaces.focused * 24 - 12 // 264 -240 = 24 and 12 each side
+        x: (Workspaces.focused-1) * root.elementSize  + xpad/2
         color: Appearance.colors.primary
         Behavior on x {
             NumberAnimation {

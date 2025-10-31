@@ -165,19 +165,6 @@ for color in vars(MaterialDynamicColors).keys():
         rgba = color_name.get_hct(scheme).to_rgba()
         material_colors[color] = rgba_to_hex(rgba)
 
-# Extended material
-if darkmode == True:
-    material_colors["success"] = "#B5CCBA"
-    material_colors["onSuccess"] = "#213528"
-    material_colors["successContainer"] = "#374B3E"
-    material_colors["onSuccessContainer"] = "#D1E9D6"
-else:
-    material_colors["success"] = "#4F6354"
-    material_colors["onSuccess"] = "#FFFFFF"
-    material_colors["successContainer"] = "#D1E8D5"
-    material_colors["onSuccessContainer"] = "#0C1F13"
-
-# Extended terminal colors
 
 term_colors = {
     "background": material_colors["surface"],
