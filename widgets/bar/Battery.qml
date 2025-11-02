@@ -31,7 +31,7 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: 4
         Text {
-            text: root.percentage * 100 + "%"
+            text: (root.percentage * 100).toFixed(0) + "%"
             color: root.onSurface
             anchors.verticalCenter: parent.verticalCenter
         }

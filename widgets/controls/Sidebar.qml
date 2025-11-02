@@ -12,55 +12,57 @@ Rectangle {
         implicitWidth: parent.implicitWidth
         implicitHeight: 48
         radius: 10
+        color: Appearance.colors.surfaceContainer
         anchors.bottom: parent.bottom
     }
 
     Column {
+        id: btnColumn
         spacing: 10
         anchors.top: parent.top
         anchors.topMargin: 32
         width: parent.implicitWidth
 
-        Button {
-            implicitWidth: parent.width
-            implicitHeight: 40
+        Repeater {
+            model: ["󰋜  Home", "󰲍  Wallpapers"]
+            delegate: Rectangle {
+                id: settingBtn
+                property int btnIndex: index
+                property string btnText: modelData
+                property bool hovered: false
 
-            text: " Home"
-
-            contentItem: Text {
-                text: parent.text
-                color: true ? Appearance.colors.onPrimary : Appearance.colors.onSurface
-                font.pixelSize: 16
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-            }
-
-            background: Rectangle {
-                implicitWidth: parent.implicitWidth
-                implicitHeight: parent.implicitHeight
-                color: true ? Appearance.colors.primary : "transparent"
+                implicitWidth: parent.width
+                implicitHeight: 40
                 radius: 8
-            }
-        }
+                Behavior on color {
+                    ColorAnimation {
+                        duration: 100
+                    }
+                }
 
-        Button {
-            implicitWidth: parent.width
-            implicitHeight: 40
-            text: "󰲍  Wallpapers"
+                color: Config.currSettingIndex == btnIndex ? Appearance.colors.primary : hovered ? Appearance.colors.primaryContainer : "transparent"
 
-            contentItem: Text {
-                text: parent.text
-                color: Appearance.colors.onSurface
-                font.pixelSize: 16
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-            }
+                Text {
+                    id: btnLabel
+                    text: settingBtn.btnText
+                    anchors.centerIn: parent
+                    font.pixelSize: 16
+                    color: Config.currSettingIndex == settingBtn.btnIndex ? Appearance.colors.onPrimary : settingBtn.hovered ? Appearance.colors.onPrimaryContainer : Appearance.colors.onSurface
 
-            background: Rectangle {
-                implicitWidth: parent.implicitWidth
-                implicitHeight: parent.implicitHeight
-                color: false ? Appearance.colors.primary : "transparent"
-                radius: 8
+                    Behavior on color {
+                        ColorAnimation {
+                            duration: 150
+                        }
+                    }
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onClicked: Config.currSettingIndex = settingBtn.btnIndex
+                    onEntered: settingBtn.hovered = true
+                    onExited: settingBtn.hovered = false
+                    cursorShape: Qt.PointingHandCursor
+                }
             }
         }
     }

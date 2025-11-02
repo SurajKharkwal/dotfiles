@@ -18,13 +18,14 @@ Rectangle {
     MouseArea {
         anchors.fill: parent
         hoverEnabled: true
+        cursorShape: Qt.PointingHandCursor
         onEntered: {
             profile.color = Appearance.colors.surfaceContainer;
         }
         onExited: {
             profile.color = "transparent";
         }
-        onClicked: Config.showProfile = !Config.showProfile
+        onClicked: Config.showPowerMenu = !Config.showPowerMenu
     }
 
     Row {

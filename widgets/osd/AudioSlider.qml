@@ -31,7 +31,7 @@ ClippingRectangle {
             OsdManager.restart();
             root.setVolume(root.volume + v);
 
-            // console.log("handleChange()", v, "after change", root.volume);
+        // console.log("handleChange()", v, "after change", root.volume);
         }
     }
 
@@ -63,7 +63,7 @@ ClippingRectangle {
         properties: "opacity"
         from: 0.6
         to: 1
-        duration: 300
+        duration: 100
     }
 
     NumberAnimation {
@@ -72,7 +72,7 @@ ClippingRectangle {
         properties: "opacity"
         from: 1
         to: 0.6
-        duration: 300
+        duration: 100
     }
 
     Slider {
