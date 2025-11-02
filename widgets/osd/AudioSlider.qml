@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.Pipewire
 import Quickshell.Io
@@ -32,7 +31,7 @@ ClippingRectangle {
             OsdManager.restart();
             root.setVolume(root.volume + v);
 
-            console.log("handleChange()", v, "after change", root.volume);
+            // console.log("handleChange()", v, "after change", root.volume);
         }
     }
 
@@ -42,12 +41,12 @@ ClippingRectangle {
         onEntered: {
             OsdManager.onSliders = true;
             inc.running = true;
-            console.log("entered()");
+            // console.log("entered()");
         }
         onExited: {
             OsdManager.onSliders = false;
             dsc.running = true;
-            console.log("exited()");
+            // console.log("exited()");
         }
         onWheel: e => {
             if (e.angleDelta.y > 0) {

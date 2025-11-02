@@ -1,9 +1,8 @@
 import QtQuick
 import Quickshell
+import Quickshell.Services.UPower
 import qs.icons
 import qs.services
-
-import Quickshell.Services.UPower
 
 Rectangle {
     id: root
@@ -56,8 +55,8 @@ Rectangle {
         BatteryIcon {
             anchors.verticalCenter: parent.verticalCenter
             percentage: root.percentage
-            pathColor: root.percentage < 0.25 ? Appearance.colors.errorContainer : Appearance.colors.surfaceBright
-            fillColor: root.percentage < 0.25 ? Appearance.colors.onErrorContainer : Appearance.colors.primary
+            pathColor: root.percentage < 0.25 ? Appearance.colors.onErrorContainer : Appearance.colors.surfaceBright
+            fillColor: root.percentage < 0.25 ? Appearance.colors.errorContainer : Appearance.colors.primary
         }
     }
 }

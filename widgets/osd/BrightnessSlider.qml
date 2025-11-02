@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-import Quickshell
 import Quickshell.Io
 import Quickshell.Widgets
 import qs.services
@@ -46,12 +45,12 @@ ClippingRectangle {
         onEntered: {
             OsdManager.onSliders = true;
             inc.running = true;
-            console.log("entered()");
+            // console.log("entered()");
         }
         onExited: {
             OsdManager.onSliders = false;
             dsc.running = true;
-            console.log("exited()");
+            // console.log("exited()");
         }
         onWheel: e => {
             if (e.angleDelta.y > 0) {

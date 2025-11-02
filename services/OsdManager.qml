@@ -20,7 +20,7 @@ Singleton {
         id: timer
         interval: 2000
         onTriggered: {
-            console.log(root.onSliders);
+            // console.log(root.onSliders);
             if (root.onSliders)
                 return;
             root.showOsd = false;

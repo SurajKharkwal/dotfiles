@@ -26,9 +26,10 @@ Column {
         stdout: StdioCollector {
             onStreamFinished: {
                 const text = this.text;
-                const [day, mounth, date, time] = text.trim().split(" ");
+                const [day, month, date, time] = text.trim().replace(/\s+/g, " ").split(" ");
+                // console.log(text);
                 timeText.text = time.slice(0, 5);
-                dateText.text = `${day}, ${date} ${mounth} `;
+                dateText.text = `${day}, ${date} ${month} `;
             }
         }
     }

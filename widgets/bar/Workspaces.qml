@@ -4,11 +4,11 @@ import qs.services
 
 Rectangle {
     id: root
-    property int xpad : 20
-    implicitWidth: 270 + xpad 
+    property int xpad: 20
+    implicitWidth: 270 + xpad
     implicitHeight: 40
     radius: implicitWidth / 2
-    property int elementSize : (implicitWidth-xpad)/10
+    property int elementSize: (implicitWidth - xpad) / 10
     color: Appearance.colors.surfaceContainerLow
     antialiasing: true
     MouseArea {
@@ -61,9 +61,9 @@ Rectangle {
             property int duration: 2000
 
             delegate: Rectangle {
-              anchors.verticalCenter: parent.verticalCenter
                 id: groupHighlight
-                x: firstIndex * (root.elementSize) + root.xpad/2
+                anchors.verticalCenter: parent.verticalCenter
+                x: firstIndex * (root.elementSize) + root.xpad / 2
                 implicitWidth: (ids.length * root.elementSize) + ((ids.length - 1))
                 implicitHeight: root.elementSize
                 radius: implicitWidth / 2
@@ -73,7 +73,6 @@ Rectangle {
                 property var ids: modelData
                 property int firstIndex: ids[0] - 1
                 property int lastIndex: ids[ids.length - 1] - 1
-
 
                 Behavior on x {
                     NumberAnimation {
@@ -96,7 +95,7 @@ Rectangle {
         implicitHeight: root.elementSize
         anchors.verticalCenter: parent.verticalCenter
         radius: implicitWidth / 2
-        x: (Workspaces.focused-1) * root.elementSize  + xpad/2
+        x: (Workspaces.focused - 1) * root.elementSize + xpad / 2
         color: Appearance.colors.primary
         Behavior on x {
             NumberAnimation {

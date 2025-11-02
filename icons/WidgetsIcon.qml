@@ -8,7 +8,7 @@ ClippingRectangle {
     property int size: 32
     implicitWidth: size
     implicitHeight: size
-    property color iconColor: Appearance.colors.onSurfaceVariant
+    property color iconColor: Appearance.colors.primary
     color: "transparent"
 
     Item {

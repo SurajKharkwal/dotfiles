@@ -2,7 +2,8 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import qs.services
-import qs.widgets
+import qs.widgets.osd
+import Quickshell.Hyprland
 
 Scope {
     id: root
@@ -22,53 +23,46 @@ Scope {
         id: variants
         model: Quickshell.screens
 
-        delegate: Component {
-            PanelWindow {
-                id: window
-                anchors.right: true
-                implicitWidth: 232
+        delegate: PanelWindow {
+            id: window
+            property var modelData
+            anchors.right: true
+            implicitWidth: 232
+            implicitHeight: 300
+            exclusiveZone: 0
+            // TODO  brighness for multi monitors
+            visible: OsdManager.showOsd && Hyprland.focusedMonitor.name === modelData.name
+            color: "transparent"
+
+            function expandThisBar() {
+                OsdManager.restart();
+            }
+            Rectangle {
+                implicitWidth: 200
                 implicitHeight: 300
-                exclusiveZone: 0
-                visible: OsdManager.showOsd
-                color: "transparent"
+                anchors.right: parent.right
+                anchors.rightMargin: 32
+                color: Appearance.colors.background
+                radius: 32
 
-                function expandThisBar() {
-                    OsdManager.restart();
+                border.color: Appearance.colors.outlineVariant
+                border.width: 1
+                MouseArea {
+                    hoverEnabled: true
+                    anchors.fill: parent
+                    onEntered: OsdManager.stop()
+                    onExited: OsdManager.restart()
                 }
-
-                function collapseThisBar() {
+                AudioSlider {
+                    //w:40px
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: 40
                 }
-                Rectangle {
-                    implicitWidth: 200
-                    implicitHeight: 300
+                BrightnessSlider {
+                    anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.right
-                    anchors.rightMargin: 32
-                    color: Appearance.colors.background
-                    radius: 32
-
-                    border.color: Appearance.colors.outlineVariant
-                    border.width: 1
-                    MouseArea {
-                        hoverEnabled: true
-                        anchors.fill: parent
-                        onEntered: OsdManager.stop()
-                        onExited: OsdManager.restart()
-                    }
-
-                    Row {
-                        anchors.fill: parent
-                        AudioSlider {
-                            //w:40px
-                            anchors.verticalCenter: parent.verticalCenter
-                            anchors.left: parent.left
-                            anchors.leftMargin: 40
-                        }
-                        BrightnessSlider {
-                            anchors.verticalCenter: parent.verticalCenter
-                            anchors.right: parent.right
-                            anchors.rightMargin: 40
-                        }
-                    }
+                    anchors.rightMargin: 40
                 }
             }
         }
