@@ -1,13 +1,14 @@
 import QtQuick
 import Quickshell
 import Quickshell.Services.UPower
-import qs.icons
+import qs.config
 import qs.services
+import qs.icons
 
 Rectangle {
     id: root
-    implicitWidth: 100
-    implicitHeight: 40
+    implicitWidth: Metrics.batteryWidth
+    implicitHeight: Metrics.batteryHeight
     radius: implicitWidth / 2
 
     property bool available: UPower.displayDevice.isLaptopBattery
@@ -27,8 +28,7 @@ Rectangle {
 
     color: Appearance.colors.surfaceContainerLow
     Row {
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.centerIn: parent
         spacing: 4
         Text {
             text: (root.percentage * 100).toFixed(0) + "%"
@@ -52,11 +52,9 @@ Rectangle {
             color: root.onSurface
             anchors.verticalCenter: parent.verticalCenter
         }
-        BatteryIcon {
+        BatteryIndicator {
             anchors.verticalCenter: parent.verticalCenter
-            percentage: root.percentage
-            pathColor: root.percentage < 0.25 ? Appearance.colors.onErrorContainer : Appearance.colors.surfaceBright
-            fillColor: root.percentage < 0.25 ? Appearance.colors.errorContainer : Appearance.colors.primary
+            progress: root.percentage
         }
     }
 }
