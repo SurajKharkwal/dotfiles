@@ -11,16 +11,8 @@ Item {
     Row {
         anchors.fill: parent
 
+        Cpu {}
         Ram {}
-        Rectangle {
-            implicitWidth: parent.width / 3
-            implicitHeight: parent.height
-            border.width: 1
-        }
-        Rectangle {
-            implicitWidth: parent.width / 3
-            implicitHeight: parent.height
-            border.width: 1
-        }
+        Disk {}
     }
 }

@@ -16,7 +16,7 @@ Item {
         spacing: height * 0.01
 
         Text {
-            text: 4.3 + "GiB"
+            text: root.temperature + "°C"
             color: Appearance.colors.onSurface
             font.pixelSize: shape.height * 0.18
         }
@@ -30,7 +30,7 @@ Item {
         spacing: shape.height * 0.02
 
         Text {
-            text: "RAM"
+            text: "CPU"
             color: Appearance.colors.onSurface
             font.pixelSize: shape.height * 0.09
         }
@@ -46,7 +46,7 @@ Item {
     // ---- Arc Shape (speedometer gap at bottom) ----
     Shape {
         id: shape
-        width: parent.width * 0.9
+        width: parent.width * 0.7
         height: width
         anchors.centerIn: parent
         preferredRendererType: Shape.CurveRenderer
