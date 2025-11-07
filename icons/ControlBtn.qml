@@ -7,11 +7,12 @@ Rectangle {
     property int iconSize: Metrics.controlBtnSize
     property int offSet: Metrics.controlBtnOffset
     property int strokeSize: iconSize / 10
+    property color surfaceColor: Appearance.colors.secondaryContainer
 
     implicitWidth: iconSize
     implicitHeight: iconSize
     radius: iconSize / 2
-    color: Appearance.colors.primaryContainer
+    color: root.surfaceColor
 
     Behavior on scale {
         NumberAnimation {
@@ -31,8 +32,9 @@ Rectangle {
         width: root.iconSize / 2
         height: root.strokeSize
         radius: width / 2
-        color: Appearance.colors.primary
+        color: Appearance.colors.onSecondaryContainer
         rotation: Metrics.openControlPanel ? 45 : 0
+        opacity: 0.6
         anchors {
             horizontalCenter: parent.horizontalCenter
             top: parent.top
@@ -45,8 +47,8 @@ Rectangle {
         width: root.iconSize / 2
         height: root.strokeSize
         radius: width / 2
-        color: Appearance.colors.primary
-        opacity: Metrics.openControlPanel ? 0 : 1
+        color: Appearance.colors.onSecondaryContainer
+        opacity: Metrics.openControlPanel ? 0 : 0.6
         anchors {
             centerIn: parent
         }
@@ -57,8 +59,9 @@ Rectangle {
         width: root.iconSize / 2
         height: root.strokeSize
         radius: width / 2
-        color: Appearance.colors.primary
+        color: Appearance.colors.onSecondaryContainer
         rotation: Metrics.openControlPanel ? -45 : 0
+        opacity: 0.6
         anchors {
             horizontalCenter: parent.horizontalCenter
             bottom: parent.bottom

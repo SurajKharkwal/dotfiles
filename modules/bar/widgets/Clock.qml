@@ -10,13 +10,14 @@ Column {
         id: timeText
         text: Clock.timeText
         color: Appearance.colors.onBackground
-        font.pixelSize: 16
+        font.pixelSize: Metrics.clockTimeFontSize
         font.bold: true
     }
     Text {
         id: dateText
         text: Clock.dateText
         font.weight: 300
+        font.pixelSize: Metrics.clockDateFontSize
         color: Appearance.colors.onBackground
     }
 }

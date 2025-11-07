@@ -1,8 +1,10 @@
 import QtQuick
 import Quickshell.Widgets
 import qs.config
+import qs.modules.control.widgets
 
 ClippingRectangle {
+    id: root
     anchors {
         fill: parent
     }
@@ -23,29 +25,7 @@ ClippingRectangle {
             }
             spacing: 10
             Repeater {
-                model: [
-                    {
-                        label: "Home",
-                        icon: "",
-                        index: 0
-                    },
-                    {
-                        label: "Wallpaper",
-                        icon: "",
-                        index: 1
-                    },
-                    {
-                        label: "Stats",
-                        icon: "󰾆",
-                        index: 2
-                    },
-                    {
-                        label: "Devices",
-                        icon: "I/O",
-                        index: 3
-                    }
-                ]
-
+                model: Metrics.controlOpts
                 delegate: Rectangle {
                     id: container
                     implicitHeight: 64
@@ -59,7 +39,7 @@ ClippingRectangle {
                         id: mousearea
                         anchors.fill: parent
                         hoverEnabled: true
-
+                        cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             Metrics.controlPageIndex = container.index;
                         }
@@ -110,5 +90,24 @@ ClippingRectangle {
         implicitHeight: parent.height
         anchors.right: parent.right
         radius: 32
+
+        Column {
+            width: parent.width
+            height: parent.height
+            anchors {
+                top: parent.top
+                topMargin: -Metrics.controlPageIndex * Metrics.controlPanelHeight
+            }
+            Behavior on anchors.topMargin {
+                NumberAnimation {
+                    duration: 200
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Home {}
+            Wallpaper {}
+            Stats {}
+            IOdevice {}
+        }
     }
 }
