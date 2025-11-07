@@ -21,7 +21,7 @@ Rectangle {
             return Appearance.colors.onSurface;
 
         if (percentage < 0.25) {
-            return Appearance.colors.Error;
+            return Appearance.colors.error;
         }
         return Appearance.colors.onSurface;
     }

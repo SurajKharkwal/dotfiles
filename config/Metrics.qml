@@ -13,7 +13,7 @@ Singleton {
     property int barXPadding: 36
 
     // clock
-    property int clockTimeFontSize: barHeight * 0.3
+    property int clockTimeFontSize: barHeight * 0.25
     property int clockDateFontSize: barHeight * 0.2
 
     property int workspaceMargin: 10
