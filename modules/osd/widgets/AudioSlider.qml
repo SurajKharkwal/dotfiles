@@ -1,10 +1,10 @@
 import QtQuick
 import QtQuick.Controls
-import Quickshell.Widgets
-import qs.config
 import Quickshell.Services.Pipewire
 import Quickshell.Io
+import Quickshell.Widgets
 import qs.services
+import qs.config
 
 Item {
     id: root
@@ -14,8 +14,8 @@ Item {
     PwObjectTracker {
         objects: [root.sink]
     }
-
     function setVolume(v: real) {
+        OsdManager.restart();
         const value = Math.max(0, Math.min(1, v));
         if (root.sink) {
             root.sink.audio.muted = false;
@@ -23,17 +23,27 @@ Item {
         }
     }
 
+    function volIcon(v) {
+        if (v <= 0)
+            return "󰝟";
+        if (v < 0.33)
+            return "󰕿";
+        if (v < 0.66)
+            return "󰖀";
+        return "󰕾";
+    }
+
     IpcHandler {
         target: "osdVolume"
         function handleChange(v: real) {
-            OsdManager.restart();
             root.setVolume(root.volume + v);
         }
     }
+
     MouseArea {
         anchors.fill: parent
         onWheel: e => {
-            if (e.angleDelta.y > 0) {
+            if (e.angleDelta.y < 0) {
                 root.setVolume(root.volume + 0.05);
             } else {
                 root.setVolume(root.volume - 0.05);
@@ -41,19 +51,31 @@ Item {
         }
     }
 
+    Timer {
+        id: timmer
+        interval: 500
+        running: false
+        onTriggered: {
+            text.text = root.volIcon(slider.value);
+        }
+    }
+
     ClippingRectangle {
         id: clipRect
-        implicitWidth: parent.width
-        implicitHeight: parent.height
-        anchors.verticalCenter: parent.verticalCenter
-        radius: 12
+        anchors.fill: parent
+        radius: width / 2
+        color: "transparent"
+
         Slider {
             id: slider
             anchors.fill: parent
-            from: 0
-            to: 1
-            value: root.volume
             orientation: Qt.Vertical
+            value: root.volume
+            onValueChanged: {
+                text.text = Math.round(slider.value * 100) + "%";
+                timmer.restart();
+                root.setVolume(slider.value);
+            }
 
             background: Rectangle {
                 id: background
@@ -61,45 +83,33 @@ Item {
                 color: Appearance.colors.primaryContainer
 
                 Rectangle {
-                    implicitWidth: parent.width
-                    implicitHeight: (1 - slider.visualPosition) * parent.height
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        bottom: parent.bottom
+                    }
+                    height: parent.height - handle.y - handle.height / 2
                     color: Appearance.colors.primary
-                    anchors.bottom: parent.bottom
                 }
             }
-            onValueChanged: root.setVolume(value)
-            handle: null
-        }
-    }
 
-    Rectangle {
-        id: handle
-        width: 70
-        height: 12
-        radius: 4
-        color: Appearance.colors.primary
-        border.width: 2
-        border.color: Appearance.colors.outline
+            handle: Rectangle {
+                id: handle
+                width: parent.width
+                height: width
+                radius: width / 2
+                color: Appearance.colors.onPrimaryContainer
+                // Use visualPosition safely in clip coordinates
+                y: (clipRect.height - height) * slider.visualPosition
+                anchors.horizontalCenter: parent.horizontalCenter
 
-        // Position relative to slider track
-        x: clipRect.x + (clipRect.width - width) / 2
-        y: clipRect.y + slider.visualPosition * (clipRect.height - height)
-    }
-    Text {
-        text: {
-            if (root.volume == 0 || root.sink == null || root.sink?.audio.muted)
-                return "";
-            if (root.volume > 0.7)
-                return "";
-            if (root.volume > 0.4)
-                return "";
-            else
-                return "";
+                Text {
+                    id: text
+                    color: Appearance.colors.primaryContainer
+                    text: Math.round(slider.value * 100) + "%"
+                    anchors.centerIn: parent
+                }
+            }
         }
-        color: Appearance.colors.onPrimary
-        font.pixelSize: 20
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 12
     }
 }

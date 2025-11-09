@@ -1,18 +1,30 @@
 import QtQuick
 import QtQuick.Controls
-import Quickshell.Widgets
 import Quickshell
 import Quickshell.Io
-import qs.config
+import Quickshell.Widgets
 import qs.services
+import qs.config
 
 Item {
     id: root
+
     property int brightness
 
     function setBrightness(value: int) {
         const cmd = ["sh", "-c", `brightnessctl -s set ${value}%`];
         Quickshell.execDetached(cmd);
+    }
+
+    function brightnessIcon(v) {
+        if (v <= 0)
+            return "󰃞";
+        if (v < 0.33)
+            return "󰃟";
+        if (v < 0.66)
+            return "󰃝";
+
+        return "󰃠";
     }
     Process {
         id: get
@@ -26,7 +38,6 @@ Item {
     IpcHandler {
         target: "osdBrightness"
         function handleChange(v: int) {
-            // console.log(root.brightness);
             OsdManager.restart();
             root.brightness = Math.min(100, Math.max(0, root.brightness + v));
             root.setBrightness(root.brightness);
@@ -36,29 +47,43 @@ Item {
     MouseArea {
         anchors.fill: parent
         onWheel: e => {
-            if (e.angleDelta.y > 0) {
+            if (e.angleDelta.y < 0) {
+                root.setBrightness(root.brightness + 5);
                 root.brightness = Math.min(100, Math.max(0, root.brightness + 5));
-                root.setBrightness(root.brightness);
             } else {
+                root.setBrightness(root.brightness - 5);
                 root.brightness = Math.min(100, Math.max(0, root.brightness - 5));
-                root.setBrightness(root.brightness);
             }
+        }
+    }
+
+    Timer {
+        id: timmer
+        interval: 500
+        running: false
+        onTriggered: {
+            text.text = root.brightnessIcon(slider.value / 100);
         }
     }
 
     ClippingRectangle {
         id: clipRect
-        implicitWidth: parent.width
-        implicitHeight: parent.height
-        anchors.verticalCenter: parent.verticalCenter
-        radius: 12
+        anchors.fill: parent
+        radius: width / 2
+        color: "transparent"
+
         Slider {
             id: slider
             anchors.fill: parent
+            orientation: Qt.Vertical
             from: 0
             to: 100
             value: root.brightness
-            orientation: Qt.Vertical
+            onValueChanged: {
+                text.text = Math.round(slider.value) + "%";
+                timmer.restart();
+                root.setBrightness(slider.value);
+            }
 
             background: Rectangle {
                 id: background
@@ -66,43 +91,32 @@ Item {
                 color: Appearance.colors.primaryContainer
 
                 Rectangle {
-                    implicitWidth: parent.width
-                    implicitHeight: (1 - slider.visualPosition) * parent.height
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        bottom: parent.bottom
+                    }
+                    height: parent.height - handle.y - handle.height / 2
                     color: Appearance.colors.primary
-                    anchors.bottom: parent.bottom
                 }
             }
-            onValueChanged: root.setBrightness(value)
-            handle: null
-        }
-    }
 
-    Rectangle {
-        id: handle
-        width: 70
-        height: 12
-        radius: 4
-        color: Appearance.colors.primary
-        border.width: 2
-        border.color: Appearance.colors.outline
+            handle: Rectangle {
+                id: handle
+                width: parent.width
+                height: width
+                radius: width / 2
+                color: Appearance.colors.onPrimaryContainer
+                // Use visualPosition safely in clip coordinates
+                y: (clipRect.height - height) * slider.visualPosition
+                anchors.horizontalCenter: parent.horizontalCenter
 
-        // Position relative to slider track
-        x: clipRect.x + (clipRect.width - width) / 2
-        y: clipRect.y + slider.visualPosition * (clipRect.height - height)
-    }
-    Text {
-        id: icon
-        text: "󰃠"
-        color: Appearance.colors.onPrimary
-        font.pixelSize: 20
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 12
-        rotation: 360 * slider.visualPosition
-
-        Behavior on rotation {
-            NumberAnimation {
-                duration: 100
+                Text {
+                    id: text
+                    color: Appearance.colors.primaryContainer
+                    text: Math.round(slider.value) + "%"
+                    anchors.centerIn: parent
+                }
             }
         }
     }

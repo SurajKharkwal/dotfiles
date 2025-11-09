@@ -1,86 +1,76 @@
 import QtQuick
 import Quickshell
-import Quickshell.Widgets
 import Quickshell.Hyprland
 import qs.config
-import qs.modules.osd.widgets
 import qs.services
+import "./widgets/"
 
 Variants {
     model: Quickshell.screens
     delegate: PanelWindow {
+        id: window
+        property var modelData
+        visible: modelData.name === Hyprland.focusedMonitor.name
+        implicitWidth: 150
+        implicitHeight: 280
         anchors.right: true
         exclusiveZone: 0
-        implicitHeight: Metrics.osdPanelHeight
-        implicitWidth: Metrics.osdPanelWidth
         color: "transparent"
-
         mask: Region {
-            id: maskLayer
-            item: maskRegion
+            id: maskRegion
+            item: maskItem
         }
 
         Item {
-            id: maskRegion
+            id: maskItem
             anchors {
                 fill: parent
-                leftMargin: OsdManager.openOsd ? 0 : hoverMaskRegion.containsMouse ? 0 : Metrics.osdPanelWidth - 2
+                leftMargin: mouseArea.containsMouse || OsdManager.openOsd ? 0 : window.width - 2
             }
         }
         MouseArea {
-            id: hoverMaskRegion
-            anchors.fill: parent
+            id: mouseArea
             hoverEnabled: true
-            onEntered: {
-                console.log("entered");
-                OsdManager.stop();
-            }
-            onExited: {
-                console.log("exited");
-                OsdManager.restart();
-            }
+            anchors.fill: parent
         }
-
         Rectangle {
-            id: osdBackground
+            topLeftRadius: 32
+            bottomLeftRadius: 32
+            implicitHeight: window.height
+            implicitWidth: window.width
+            color: Appearance.colors.background
             anchors {
-                fill: parent
-                leftMargin: OsdManager.openOsd ? 0 : Metrics.osdPanelWidth + 10
-                rightMargin: Metrics.osdPanelRightMargin
-            }
-            radius: 32
-            opacity: OsdManager.openOsd ? 1 : 0
-            color: Appearance.colors.surface
-            AudioSlider {
-                implicitHeight: Metrics.osdSliderHeight
-                implicitWidth: Metrics.osdSliderWidth
-                anchors {
-                    left: parent.left
-                    verticalCenter: parent.verticalCenter
-                    leftMargin: 30
-                }
-            }
-            BrightnessSlider {
-                implicitHeight: Metrics.osdSliderHeight
-                implicitWidth: Metrics.osdSliderWidth
-                anchors {
-                    left: parent.left
-                    leftMargin: Metrics.osdPanelWidth - Metrics.osdPanelRightMargin - Metrics.osdSliderWidth - Metrics.osdPanelXPad
-                    verticalCenter: parent.verticalCenter
-                }
-            }
-
-            Behavior on opacity {
-                NumberAnimation {
-                    duration: 300
-                    easing.type: Easing.InOutQuad
-                }
+                top: parent.top
+                bottom: parent.bottom
+                left: parent.left
+                leftMargin: mouseArea.containsMouse || OsdManager.openOsd ? 0 : window.width
             }
 
             Behavior on anchors.leftMargin {
-                NumberAnimation {
-                    duration: 200
-                    easing.type: Easing.InOutQuad
+                SmoothedAnimation {
+                    duration: 150
+                }
+            }
+
+            AudioSlider {
+                implicitWidth: 40
+                implicitHeight: 200
+
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                    left: parent.left
+                    leftMargin: 23
+                }
+            }
+
+            BrightnessSlider {
+                implicitWidth: 40
+                implicitHeight: 200
+
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                    right: parent.right
+                    rightMargin: 23
                 }
             }
         }

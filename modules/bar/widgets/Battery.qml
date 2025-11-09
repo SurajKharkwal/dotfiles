@@ -1,16 +1,14 @@
 import QtQuick
-import Quickshell
 import Quickshell.Services.UPower
 import qs.config
-import qs.services
-import qs.icons
 
 Rectangle {
     id: root
-    implicitWidth: Metrics.batteryWidth
-    implicitHeight: Metrics.batteryHeight
+    implicitWidth: 100
+    implicitHeight: 40
     radius: implicitWidth / 2
 
+    property int iconSize: 20
     property bool available: UPower.displayDevice.isLaptopBattery
     property var chargeState: UPower.displayDevice.state
     property bool isCharging: chargeState == UPowerDeviceState.Charging
@@ -55,6 +53,7 @@ Rectangle {
         BatteryIndicator {
             anchors.verticalCenter: parent.verticalCenter
             progress: root.percentage
+            iconSize: root.iconSize
         }
     }
 }

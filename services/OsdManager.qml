@@ -20,6 +20,7 @@ Singleton {
     Timer {
         id: timer
         interval: 2000
+        running: false
         onTriggered: {
             root.openOsd = false;
         }

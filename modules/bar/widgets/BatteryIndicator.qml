@@ -1,15 +1,13 @@
 import QtQuick
-import Quickshell
 import Quickshell.Widgets
 import QtQuick.Shapes
-import QtQuick.Controls
 import qs.config
 
 ClippingRectangle {
     id: root
 
     property real progress: 0.7
-    property int iconSize: Metrics.batteryIconSize
+    property int iconSize
     property int center: iconSize / 2
     property int strokeWidth: 2
     property int radius: iconSize / 2 - strokeWidth

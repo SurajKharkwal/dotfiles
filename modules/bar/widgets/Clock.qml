@@ -1,23 +1,16 @@
 import QtQuick
-import Quickshell
-import Quickshell.Io
-import qs.services
 import qs.config
+import qs.services
 
 Column {
-    id: root
     Text {
-        id: timeText
-        text: Clock.timeText
-        color: Appearance.colors.onBackground
-        font.pixelSize: Metrics.clockTimeFontSize
-        font.bold: true
+        text: Clock.time
+        color: Appearance.colors.onSurface
+        font.weight: 700
     }
     Text {
-        id: dateText
-        text: Clock.dateText
+        text: Clock.date
+        color: Appearance.colors.onSurface
         font.weight: 300
-        font.pixelSize: Metrics.clockDateFontSize
-        color: Appearance.colors.onBackground
     }
 }

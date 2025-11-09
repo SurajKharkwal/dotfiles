@@ -6,8 +6,8 @@ import Quickshell.Io
 
 Singleton {
     id: clockSingleton
-    property string timeText: ""
-    property string dateText: ""
+    property string time: ""
+    property string date: ""
 
     Process {
         id: dateProc
@@ -16,13 +16,13 @@ Singleton {
         stdout: StdioCollector {
             onStreamFinished: {
                 const text = this.text;
-                const [day, month, date, time] = text.trim().replace(/\s+/g, " ").split(" ");
-                // console.log(text);
-                clockSingleton.timeText = time.slice(0, 5);
-                clockSingleton.dateText = `${day}, ${date} ${month} `;
+                const [day, month, dateNum, timeStr] = text.trim().replace(/\s+/g, " ").split(" ");
+                clockSingleton.time = timeStr.slice(0, 5);
+                clockSingleton.date = `${day}, ${dateNum} ${month}`;
             }
         }
     }
+
     Timer {
         interval: 1000
         running: true
