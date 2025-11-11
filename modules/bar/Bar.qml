@@ -7,8 +7,8 @@ import "./widgets"
 Variants {
     model: Quickshell.screens
     delegate: PanelWindow {
-        property var modelData
-        visible: modelData.name === Hyprland.focusedMonitor.name
+        property ShellScreen modelData
+        visible: modelData.name && Hyprland.focusedMonitor && modelData.name === Hyprland.focusedMonitor.name
         anchors.top: true
         exclusiveZone: 0
         implicitWidth: Metrics.barWidth

@@ -9,8 +9,8 @@ Variants {
     model: Quickshell.screens
     delegate: PanelWindow {
         id: window
-        property var modelData
-        visible: modelData.name === Hyprland.focusedMonitor.name
+        property ShellScreen modelData
+        visible: modelData.name && Hyprland.focusedMonitor && modelData.name === Hyprland.focusedMonitor.name
         implicitWidth: 150
         implicitHeight: 280
         anchors.right: true

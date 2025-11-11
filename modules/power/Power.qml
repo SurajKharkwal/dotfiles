@@ -10,13 +10,13 @@ Variants {
     model: Quickshell.screens
     delegate: PanelWindow {
         id: window
-        property var modelData
+        property ShellScreen modelData
         anchors.left: true
         exclusiveZone: 0
         implicitWidth: 300
-        implicitHeight: 800
+        implicitHeight: 450
         color: "transparent"
-        visible: modelData.name === Hyprland.focusedMonitor.name
+        visible: modelData.name && Hyprland.focusedMonitor && modelData.name === Hyprland.focusedMonitor.name
 
         mask: Region {
             id: maskRegion
@@ -36,13 +36,12 @@ Variants {
             anchors.fill: parent
         }
 
-        ClippingRectangle {
+        Rectangle {
             id: background
             color: Appearance.colors.background
-            anchors.fill: parent
             topRightRadius: 32
             bottomRightRadius: 32
-
+            implicitWidth: parent.width
             anchors {
                 top: parent.top
                 bottom: parent.bottom
@@ -51,15 +50,15 @@ Variants {
             }
 
             Behavior on anchors.rightMargin {
-                SpringAnimation {
-                    spring: 10
-                    damping: 0.2
+                NumberAnimation {
+                    duration: 100
                 }
             }
 
             Actions {
-                implicitWidth: parent.width
-                implicitHeight: 300
+                width: parent.width
+                height: 250
+                padding: 16
                 anchors {
                     top: greet.bottom
                     left: parent.left
@@ -68,10 +67,15 @@ Variants {
 
             Rectangle {
                 id: greet
-                implicitWidth: parent.width
-                implicitHeight: 220
+                implicitWidth: parent.width - 32
+                implicitHeight: 250 - 32
                 color: Appearance.colors.surfaceContainer
-                topRightRadius: 32
+                radius: 32
+                anchors {
+                    horizontalCenter: parent.horizontalCenter
+                    top: parent.top
+                    topMargin: 16
+                }
 
                 AnimatedImage {
                     source: "/home/flyinghawk/.config/quickshell/assets/sad-cute.gif"
