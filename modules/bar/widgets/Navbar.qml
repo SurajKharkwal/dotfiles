@@ -54,6 +54,7 @@ Item {
                 Text {
                     text: modelData
                     font.pixelSize: 26
+                    font.family: Appearance.font
                     color: selected ? Appearance.colors.primary : Appearance.colors.onSurface
                     anchors.centerIn: parent
                 }

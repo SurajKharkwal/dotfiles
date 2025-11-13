@@ -10,7 +10,8 @@ Singleton {
     property bool openPanel: false
     property int currAppIdx: 0
     property list<string> discludeApps: ["Avahi Zeroconf Browser", "Avahi SSH Server Browser", "Avahi VNC Server Browser"]
-    property list<DesktopEntry> allApps: Array.from(DesktopEntries.applications.values).filter(app => !discludeApps.includes(app.name)).sort((a, b) => a.name.localeCompare(b.name))
+    property list<DesktopEntry> allApps: Array.from(DesktopEntries.applications.values).filter(app => !discludeApps.includes(app.name)).sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
+
     property list<DesktopEntry> displayApps: allApps
 
     function iconFilter(iconName) {
@@ -45,7 +46,7 @@ Singleton {
 
     function query(appName: string) {
         const queryStr = appName.toLowerCase();
-        displayApps = allApps.filter(app => app.name.toLowerCase().includes(queryStr)).sort((a, b) => a.name.localeCompare(b.name));
+        displayApps = allApps.filter(app => app.name.toLowerCase().includes(queryStr)).sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
         currAppIdx = 0;
     }
 

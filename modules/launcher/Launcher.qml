@@ -37,6 +37,7 @@ Scope {
                 color: Appearance.colors.background
                 radius: 32
                 scale: Launcher.openPanel ? 1 : 0.8
+                focus: true
                 transformOrigin: Item.Top
                 Behavior on scale {
                     NumberAnimation {

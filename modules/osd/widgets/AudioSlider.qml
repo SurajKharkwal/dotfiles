@@ -106,6 +106,7 @@ Item {
                 Text {
                     id: text
                     color: Appearance.colors.primaryContainer
+                    font.family: Appearance.font
                     text: Math.round(slider.value * 100) + "%"
                     anchors.centerIn: parent
                 }

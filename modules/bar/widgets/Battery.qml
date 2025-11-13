@@ -31,6 +31,7 @@ Rectangle {
         Text {
             text: (root.percentage * 100).toFixed(0) + "%"
             color: root.onSurface
+            font.family: Appearance.font
             anchors.verticalCenter: parent.verticalCenter
         }
         Text {

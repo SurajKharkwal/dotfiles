@@ -60,6 +60,7 @@ ClippingRectangle {
                 id: text
                 text: modelData.name
                 font.pointSize: 14
+                font.family: Appearance.font
                 color: {
                     if (Launcher.displayApps[Launcher.currAppIdx]) {
                         if (Launcher.displayApps[Launcher.currAppIdx].name === modelData.name) {

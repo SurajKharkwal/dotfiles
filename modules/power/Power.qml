@@ -13,8 +13,8 @@ Variants {
         property ShellScreen modelData
         anchors.left: true
         exclusiveZone: 0
-        implicitWidth: 300
-        implicitHeight: 450
+        implicitWidth: Screen.width * 0.19
+        implicitHeight: Screen.height * 0.4
         color: "transparent"
         visible: modelData.name && Hyprland.focusedMonitor && modelData.name === Hyprland.focusedMonitor.name
 

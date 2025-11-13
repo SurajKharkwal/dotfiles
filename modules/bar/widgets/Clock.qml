@@ -7,6 +7,7 @@ Column {
         text: Clock.time
         color: Appearance.colors.onSurface
         font.weight: 700
+        font.family: Appearance.font
     }
     Text {
         text: Clock.date

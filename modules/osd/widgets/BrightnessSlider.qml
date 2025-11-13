@@ -113,6 +113,7 @@ Item {
 
                 Text {
                     id: text
+                    font.family: Appearance.font
                     color: Appearance.colors.primaryContainer
                     text: Math.round(slider.value) + "%"
                     anchors.centerIn: parent

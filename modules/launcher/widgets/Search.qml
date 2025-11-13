@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Controls
 import qs.config
 import qs.services
-import Quickshell
 
 TextField {
     id: searchInput
@@ -13,6 +12,7 @@ TextField {
     leftPadding: 72
     focus: true
     text: Launcher.openPanel ? "" : ""   // reset when toggle the panel
+    font.family: Appearance.font
     Keys.onPressed: event => {
         if (event.modifiers & Qt.ControlModifier) {
             if (event.key === Qt.Key_N)
@@ -36,8 +36,7 @@ TextField {
         }
     }
 
-    onTextChanged: 
-        Launcher.query(text);
+    onTextChanged: Launcher.query(text)
 
     SearchIcon {
         id: searchIcon
