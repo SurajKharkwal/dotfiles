@@ -1,0 +1,52 @@
+{
+  "common": {
+    "fontWeight": {
+      "small": 300,
+      "medium": 500,
+      "large": 700
+    },
+    "fontSize": {
+      "small": 14,
+      "medium": 18,
+      "large": 24
+    },
+    "iconSize": {
+      "small": 16,
+      "medium": 20,
+      "large": 30
+    }
+  },
+  "bar": {
+    "anchors": {
+      "top": true
+    },
+    "topRightRadius": 0,
+    "topLeftRadius": 0,
+    "bottomLeftRadius": 32,
+    "bottomRightRadius": 32,
+    "leftMargin": 24,
+    "rightMargin": 24,
+    "height": 64,
+    "width": 800,
+
+    "battery": {
+      "iconSize": 20,
+      "iconStrokeWidth": 2,
+      "width": 100,
+      "height": 40
+    }
+  },
+
+  "osd": {
+    "anchors": {
+      "right": true
+    },
+    "height": 60,
+    "width": 300
+  },
+  "launcher": {
+    "anchors": {},
+    "height": 60,
+    "width": 300
+  }
+}
