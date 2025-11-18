@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=WhatsApp
+Comment=Open WhatsApp Web
+Exec=xdg-open "https://web.whatsapp.com/"
+Icon=/home/flyinghawk/dotfiles/dots/.local/share/applications/whatsapp.png
+Terminal=false
+Type=Application
+Categories=Network;Chat;
+StartupNotify=false
