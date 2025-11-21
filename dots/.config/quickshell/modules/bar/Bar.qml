@@ -1,7 +1,8 @@
 import QtQuick
 import Quickshell
-import Quickshell.Hyprland
+import qs.modules.corner
 import qs.config
+import qs.assets.icons
 import "./widgets"
 
 Variants {
@@ -9,25 +10,21 @@ Variants {
     delegate: PanelWindow {
         id: window
         property ShellScreen modelData
-        visible: modelData.name && Hyprland.focusedMonitor && modelData.name === Hyprland.focusedMonitor.name
-        anchors: Appearance.metrics.bar.anchors
-        exclusiveZone: 0
-        implicitWidth: Appearance.metrics.bar.width
-        implicitHeight: Appearance.metrics.bar.height
+        // visible: modelData.name && Hyprland.focusedMonitor && modelData.name === Screen.name
+        property int barHeight: 64
+        property int roundCornerSize: 15
+        anchors {
+            top: true
+            left: true
+            right: true
+        }
+        exclusiveZone: barHeight - roundCornerSize
+        implicitHeight: barHeight
         color: "transparent"
-
-        mask: Region {
-            id: maskRegion
-            item: maskItem
+        Component.onCompleted: {
+            console.log("PanelWindow completed", Screen.pixelDensity);
         }
 
-        Item {
-            id: maskItem
-            anchors {
-                fill: parent
-                bottomMargin: mouseArea.containsMouse ? 0 : window.implicitHeight - 2
-            }
-        }
         MouseArea {
             id: mouseArea
             hoverEnabled: true
@@ -37,17 +34,12 @@ Variants {
         Rectangle {
             id: barBackground
             color: Appearance.colors.surface
-            implicitHeight: window.implicitHeight
+            implicitHeight: window.implicitHeight - window.roundCornerSize
             anchors {
                 left: parent.left
                 right: parent.right
                 top: parent.top
-                topMargin: mouseArea.containsMouse ? 0 : -window.implicitHeight
             }
-            topLeftRadius: Appearance.metrics.bar.topLeftRadius
-            topRightRadius: Appearance.metrics.bar.topRightRadius
-            bottomLeftRadius: Appearance.metrics.bar.bottomLeftRadius
-            bottomRightRadius: Appearance.metrics.bar.bottomRightRadius
 
             Behavior on anchors.topMargin {
                 NumberAnimation {
@@ -55,35 +47,90 @@ Variants {
                 }
             }
 
-            Clock {
-                id: clock
+            RoundCorner {
+                corner: RoundCorner.CornerEnum.TopLeft
+                anchors.left: parent.left
+                implicitSize: window.roundCornerSize
+            }
+
+            RoundCorner {
+                corner: RoundCorner.CornerEnum.TopLeft
+                color: Appearance.colors.background
+                implicitSize: window.roundCornerSize
                 anchors {
                     left: parent.left
-                    verticalCenter: parent.verticalCenter
-                    leftMargin: Appearance.metrics.bar.leftMargin
+                    top: barBackground.bottom
                 }
             }
-            Navbar {
-                id: navbar
-                currPanel: -1
+            RoundCorner {
+                corner: RoundCorner.CornerEnum.TopRight
+                anchors.right: parent.right
+                implicitSize: window.roundCornerSize
+            }
+
+            RoundCorner {
+                corner: RoundCorner.CornerEnum.TopRight
+                color: Appearance.colors.background
+                implicitSize: window.roundCornerSize
+                anchors {
+                    right: parent.right
+                    top: barBackground.bottom
+                }
+            }
+
+            CenterControl {
+                id: centerControl
                 anchors.centerIn: parent
             }
 
             Battery {
-                id: battery
                 anchors {
-                    right: navbar.left
+                    left: centerControl.right
+                    leftMargin: Appearance.tokens.common.spacing.xl
                     verticalCenter: parent.verticalCenter
-                    rightMargin: 10
                 }
             }
 
             InternetSpeed {
-                id: internetSpeed
                 anchors {
-                    left: navbar.right
+                    right: centerControl.left
+                    rightMargin: Appearance.tokens.common.spacing.sm
                     verticalCenter: parent.verticalCenter
-                    leftMargin: 10
+                }
+            }
+
+            Row {
+                height: parent.height
+                rightPadding: Appearance.tokens.common.spacing.sm
+                spacing: 10
+                anchors {
+                    right: parent.right
+                    rightMargin: Appearance.tokens.common.spacing.md
+                    verticalCenter: parent.verticalCenter
+                }
+
+                WifiStrong {
+                    fillColor: Appearance.colors.onSurface
+                    iconSize: Appearance.tokens.common.iconSize.md
+                    anchors {
+                        verticalCenter: parent.verticalCenter
+                    }
+                }
+
+                Bluetooth {
+                    fillColor: Appearance.colors.onSurface
+                    iconSize: Appearance.tokens.common.iconSize.md
+                    anchors {
+                        verticalCenter: parent.verticalCenter
+                    }
+                }
+                Power {
+                    id: icon
+                    fillColor: Appearance.colors.error
+                    iconSize: Appearance.tokens.common.iconSize.lg
+                    anchors {
+                        verticalCenter: parent.verticalCenter
+                    }
                 }
             }
         }

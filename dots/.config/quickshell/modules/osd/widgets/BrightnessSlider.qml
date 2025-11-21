@@ -1,30 +1,24 @@
 import QtQuick
 import QtQuick.Controls
-import Quickshell
-import Quickshell.Io
 import Quickshell.Widgets
-import qs.services
 import qs.config
+import qs.services
 import qs.assets.icons
 
-Item {
+ClippingRectangle {
     id: root
+    width: 50
+    height: parent.height * 0.8
+    radius: width / 2
 
-    property int brightness: 0
-    property bool suppressIcons: false
-
-    function setBrightness(value: int) {
-        const cmd = ["sh", "-c", `brightnessctl -s set ${value}%`];
-        Quickshell.execDetached(cmd);
-    }
-
-    function handleBrightnessIcon(v) {
-        if (root.suppressIcons)
-            return;
+    function hideIcon() {
         brightnessEmpty.iconOpacity = 0;
         brightnessLow.iconOpacity = 0;
         brightnessHigh.iconOpacity = 0;
         brightnessFull.iconOpacity = 0;
+    }
+
+    function showIcon(v) {
         if (v === 0) {
             brightnessEmpty.iconOpacity = 1;
         } else if (v < 50) {
@@ -36,155 +30,116 @@ Item {
         }
     }
 
-    Process {
-        id: get
-        running: true
-        command: ["sh", "-c", "brightnessctl -m | awk -F, '{gsub(/%/, \"\", $4); print $4}'"]
-        stdout: StdioCollector {
-            onStreamFinished: root.brightness = parseInt(this.text.trim())
-        }
-    }
-
-    IpcHandler {
-        target: "osdBrightness"
-        function handleChange(v: int) {
-            OsdManager.restart();
-            root.brightness = Math.min(100, Math.max(0, root.brightness + v));
-            root.setBrightness(root.brightness);
+    Timer {
+        id: fadeTimer
+        interval: 500
+        onTriggered: {
+            root.showIcon(slider.value);
+            label.opacity = 0;
         }
     }
 
     MouseArea {
         anchors.fill: parent
         onWheel: e => {
-            root.suppressIcons = true;
-            if (e.angleDelta.y < 0) {
-                root.brightness = Math.min(100, root.brightness + 5);
-            } else {
-                root.brightness = Math.max(0, root.brightness - 5);
-            }
-            root.setBrightness(root.brightness);
-            timmer.restart();
+            const step = 5;
+            const dir = e.angleDelta.y < 0 ? 1 : -1;
+            OsdManager.setBrightness(OsdManager.brightness + dir * step);
         }
     }
 
-    Timer {
-        id: timmer
-        interval: 500
-        running: false
-        onTriggered: {
-            root.suppressIcons = false;
-            root.handleBrightnessIcon(slider.value);
-            text.opacity = 0;
-        }
-    }
-
-    ClippingRectangle {
-        id: clipRect
+    Slider {
+        id: slider
         anchors.fill: parent
-        radius: width / 2
-        color: "transparent"
+        orientation: Qt.Vertical
+        from: 0
+        to: 100
 
-        Slider {
-            id: slider
+        value: OsdManager.brightness
+
+        onValueChanged: {
+            label.opacity = 1;
+            root.hideIcon();
+            label.text = Math.round(slider.value * 100) + "%";
+            fadeTimer.restart();
+            OsdManager.setVolume(slider.value);
+        }
+
+        background: Rectangle {
             anchors.fill: parent
-            orientation: Qt.Vertical
-            from: 0
-            to: 100
-            value: root.brightness
+            color: Appearance.colors.primaryContainer
 
-            onValueChanged: {
-                text.opacity = 1;
-                root.suppressIcons = true;
-                brightnessEmpty.iconOpacity = 0;
-                brightnessFull.iconOpacity = 0;
-                brightnessHigh.iconOpacity = 0;
-                brightnessLow.iconOpacity = 0;
-
-                text.text = Math.round(slider.value) + "%";
-                timmer.restart();
-                root.setBrightness(slider.value);
+            Rectangle {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                height: parent.height - handle.y - handle.height / 2
+                color: Appearance.colors.primary
             }
+        }
 
-            background: Rectangle {
-                id: background
-                anchors.fill: parent
+        handle: Rectangle {
+            id: handle
+            width: parent.width
+            height: width
+            radius: width / 2
+            color: Appearance.colors.onPrimaryContainer
+            y: (root.height - height) * slider.visualPosition
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            Text {
+                id: label
                 color: Appearance.colors.primaryContainer
-
-                Rectangle {
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        bottom: parent.bottom
-                    }
-                    height: parent.height - handle.y - handle.height / 2
-                    color: Appearance.colors.primary
-                }
+                font.family: Appearance.font
+                text: Math.round(OsdManager.brightness * 100) + "%"
+                anchors.centerIn: parent
             }
 
-            handle: Rectangle {
-                id: handle
-                width: parent.width
-                height: width
-                radius: width / 2
-                color: Appearance.colors.onPrimaryContainer
-                y: (clipRect.height - height) * slider.visualPosition
-                anchors.horizontalCenter: parent.horizontalCenter
-
-                Text {
-                    id: text
-                    font.family: Appearance.font
-                    color: Appearance.colors.primaryContainer
-                    text: Math.round(slider.value) + "%"
-                    anchors.centerIn: parent
-                }
-
-                BrightnessEmpty {
-                    id: brightnessEmpty
-                    fillColor: Appearance.colors.primaryContainer
-                    anchors.centerIn: parent
-                    iconOpacity: 0
-                    Behavior on iconOpacity {
-                        NumberAnimation {
-                            duration: 150
-                            easing.type: Easing.InOutQuad
-                        }
+            BrightnessEmpty {
+                id: brightnessEmpty
+                fillColor: Appearance.colors.primaryContainer
+                anchors.centerIn: parent
+                iconOpacity: 0
+                Behavior on iconOpacity {
+                    NumberAnimation {
+                        duration: 150
+                        easing.type: Easing.InOutQuad
                     }
                 }
-                BrightnessFull {
-                    id: brightnessFull
-                    fillColor: Appearance.colors.primaryContainer
-                    anchors.centerIn: parent
-                    iconOpacity: 0
-                    Behavior on iconOpacity {
-                        NumberAnimation {
-                            duration: 150
-                            easing.type: Easing.InOutQuad
-                        }
+            }
+            BrightnessFull {
+                id: brightnessFull
+                fillColor: Appearance.colors.primaryContainer
+                anchors.centerIn: parent
+                iconOpacity: 0
+                Behavior on iconOpacity {
+                    NumberAnimation {
+                        duration: 150
+                        easing.type: Easing.InOutQuad
                     }
                 }
-                BrightnessLow {
-                    id: brightnessLow
-                    fillColor: Appearance.colors.primaryContainer
-                    anchors.centerIn: parent
-                    iconOpacity: 0
-                    Behavior on iconOpacity {
-                        NumberAnimation {
-                            duration: 150
-                            easing.type: Easing.InOutQuad
-                        }
+            }
+            BrightnessLow {
+                id: brightnessLow
+                fillColor: Appearance.colors.primaryContainer
+                anchors.centerIn: parent
+                iconOpacity: 0
+                Behavior on iconOpacity {
+                    NumberAnimation {
+                        duration: 150
+                        easing.type: Easing.InOutQuad
                     }
                 }
-                BrightnessHigh {
-                    id: brightnessHigh
-                    fillColor: Appearance.colors.primaryContainer
-                    anchors.centerIn: parent
-                    iconOpacity: 0
-                    Behavior on iconOpacity {
-                        NumberAnimation {
-                            duration: 150
-                            easing.type: Easing.InOutQuad
-                        }
+            }
+            BrightnessHigh {
+                id: brightnessHigh
+                fillColor: Appearance.colors.primaryContainer
+                anchors.centerIn: parent
+                iconOpacity: 0
+                Behavior on iconOpacity {
+                    NumberAnimation {
+                        duration: 150
+                        easing.type: Easing.InOutQuad
                     }
                 }
             }

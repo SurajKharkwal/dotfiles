@@ -5,6 +5,7 @@ import qs.modules.osd
 import qs.modules.launcher
 import qs.modules.power
 import qs.modules.lock
+import qs.modules.corner
 
 ShellRoot {
     LazyLoader {
@@ -29,5 +30,10 @@ ShellRoot {
     LazyLoader {
         active: true
         component: Lock {}
+    }
+
+    LazyLoader {
+        active: true
+        component: Corner {}
     }
 }

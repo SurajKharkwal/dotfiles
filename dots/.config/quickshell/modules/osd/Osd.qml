@@ -53,24 +53,20 @@ Variants {
             }
 
             AudioSlider {
-                implicitWidth: 40
-                implicitHeight: 200
-
+                id: audioSlider
                 anchors {
                     verticalCenter: parent.verticalCenter
                     left: parent.left
-                    leftMargin: 23
+                    leftMargin: 10
                 }
             }
 
             BrightnessSlider {
-                implicitWidth: 40
-                implicitHeight: 200
-
+                id: brightnessSlider
                 anchors {
                     verticalCenter: parent.verticalCenter
                     right: parent.right
-                    rightMargin: 23
+                    rightMargin: 10
                 }
             }
         }

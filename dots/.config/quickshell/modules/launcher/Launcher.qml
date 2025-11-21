@@ -26,8 +26,8 @@ Scope {
             property ShellScreen modelData
             property bool isFocusedMonitor: modelData.name && Hyprland.focusedMonitor && modelData.name === Hyprland.focusedMonitor.name
             visible: isFocusedMonitor && Launcher.openPanel
-            implicitHeight: Hyprland.focusedMonitor.height * 0.42
-            implicitWidth: Hyprland.focusedMonitor.width * 0.312
+            implicitHeight: 500
+            implicitWidth: 600
 
             focusable: true
             color: "transparent"
@@ -35,7 +35,7 @@ Scope {
             ClippingRectangle {
                 anchors.fill: parent
                 color: Appearance.colors.background
-                radius: 32
+                radius: Appearance.tokens.common.radius["3xl"]
                 scale: Launcher.openPanel ? 1 : 0.8
                 transformOrigin: Item.Top
                 Behavior on scale {
@@ -54,7 +54,7 @@ Scope {
                     anchors {
                         top: parent.top
                         horizontalCenter: parent.horizontalCenter
-                        topMargin: 16
+                        topMargin: Appearance.tokens.common.spacing.sm
                     }
                     implicitHeight: 64
                     implicitWidth: parent.width
@@ -66,8 +66,8 @@ Scope {
                         horizontalCenter: parent.horizontalCenter
                         top: search.bottom
                         bottom: parent.bottom
-                        topMargin: 16
-                        bottomMargin: 16
+                        topMargin: Appearance.tokens.common.spacing.sm
+                        bottomMargin: Appearance.tokens.common.spacing.sm
                     }
                 }
             }

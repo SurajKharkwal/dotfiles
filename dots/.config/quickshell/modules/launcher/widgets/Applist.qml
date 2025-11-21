@@ -34,7 +34,7 @@ ClippingRectangle {
                 return "transparent";
             }
             implicitHeight: 64
-            implicitWidth: 560 //  parent.width not works idk why
+            implicitWidth: parent.width //  parent.width not works idk why
             radius: 8
             MouseArea {
                 id: mouseArea
@@ -48,7 +48,7 @@ ClippingRectangle {
             }
             IconImage {
                 id: iconImage
-                implicitSize: 40
+                implicitSize: Appearance.tokens.common.iconSize["2xl"]
                 anchors {
                     left: parent.left
                     leftMargin: 10
@@ -59,7 +59,7 @@ ClippingRectangle {
             Text {
                 id: text
                 text: modelData.name
-                font.pointSize: 14
+                font.pointSize: Appearance.tokens.common.fontSize.md
                 font.family: Appearance.font
                 color: {
                     if (Launcher.displayApps[Launcher.currAppIdx]) {
@@ -79,8 +79,8 @@ ClippingRectangle {
             Text {
                 id: commentText
                 text: modelData.comment
-                font.pointSize: 12
-                font.weight: 300
+                font.pointSize: Appearance.tokens.common.fontSize.xs
+                font.weight: Appearance.tokens.common.fontWeight.light
                 color: {
                     if (Launcher.displayApps[Launcher.currAppIdx]) {
                         if (Launcher.displayApps[Launcher.currAppIdx].name === modelData.name) {

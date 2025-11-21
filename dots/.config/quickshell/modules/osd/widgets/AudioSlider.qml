@@ -1,142 +1,124 @@
 import QtQuick
 import QtQuick.Controls
-import Quickshell.Services.Pipewire
-import Quickshell.Io
 import Quickshell.Widgets
-import qs.services
 import qs.config
+import qs.services
 import qs.assets.icons
+import Quickshell.Io
 
-Item {
+ClippingRectangle {
     id: root
-    property PwNode sink: Pipewire.defaultAudioSink
-    readonly property real volume: sink?.audio.volume ?? 0
-
-    PwObjectTracker {
-        objects: [root.sink]
-    }
-    function setVolume(v: real) {
-        OsdManager.restart();
-        const value = Math.max(0, Math.min(1, v));
-        if (root.sink) {
-            root.sink.audio.muted = false;
-            root.sink.audio.volume = value;
-        }
-    }
-
-    function handleVolumeIcon(v) {
-        if (v == 0) {
-            muteIcon.iconOpacity = 1;
-        } else if (v < 0.5) {
-            volumeDownIcon.iconOpacity = 1;
-        } else {
-            volumeUpIcon.iconOpacity = 1;
-        }
-    }
+    width: 50
+    height: parent.height * 0.8
+    radius: width / 2
 
     IpcHandler {
         target: "osdVolume"
-        function handleChange(v: real) {
-            root.setVolume(root.volume + v);
+        function handleChange(v) {
+            OsdManager.setVolume(OsdManager.volume + v);
+        }
+    }
+
+    function hideIcon() {
+        muteIcon.iconOpacity = 0;
+        volumeDownIcon.iconOpacity = 0;
+        volumeUpIcon.iconOpacity = 0;
+    }
+
+    function showIcon(v) {
+        if (v === 0)
+            muteIcon.iconOpacity = 1;
+        else if (v < 0.5)
+            volumeDownIcon.iconOpacity = 1;
+        else
+            volumeUpIcon.iconOpacity = 1;
+    }
+
+    Timer {
+        id: fadeTimer
+        interval: 500
+        onTriggered: {
+            root.showIcon(slider.value);
+            label.opacity = 0;
         }
     }
 
     MouseArea {
         anchors.fill: parent
         onWheel: e => {
-            if (e.angleDelta.y < 0) {
-                root.setVolume(root.volume + 0.05);
-            } else {
-                root.setVolume(root.volume - 0.05);
-            }
+            const step = 0.05;
+            const dir = e.angleDelta.y < 0 ? 1 : -1;
+            OsdManager.setVolume(OsdManager.volume + dir * step);
         }
     }
 
-    Timer {
-        id: timmer
-        interval: 500
-        running: false
-        onTriggered: {
-            root.handleVolumeIcon(slider.value);
-            label.opacity = 0;
-        }
-    }
-
-    ClippingRectangle {
-        id: clipRect
+    Slider {
+        id: slider
         anchors.fill: parent
-        radius: width / 2
-        color: "transparent"
+        orientation: Qt.Vertical
 
-        Slider {
-            id: slider
+        value: OsdManager.volume
+
+        onValueChanged: {
+            label.opacity = 1;
+            root.hideIcon();
+            label.text = Math.round(slider.value * 100) + "%";
+            fadeTimer.restart();
+            OsdManager.setVolume(slider.value);
+        }
+
+        background: Rectangle {
             anchors.fill: parent
-            orientation: Qt.Vertical
-            value: root.volume
-            onValueChanged: {
-                label.opacity = 1;
-                volumeUpIcon.iconOpacity = 0;
-                volumeDownIcon.iconOpacity = 0;
-                muteIcon.iconOpacity = 0;
-                label.text = Math.round(slider.value * 100) + "%";
-                timmer.restart();
-                root.setVolume(slider.value);
-            }
+            color: Appearance.colors.primaryContainer
 
-            background: Rectangle {
-                id: background
-                anchors.fill: parent
+            Rectangle {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                height: parent.height - handle.y - handle.height / 2
+                color: Appearance.colors.primary
+            }
+        }
+
+        handle: Rectangle {
+            id: handle
+            width: parent.width
+            height: width
+            radius: width / 2
+            color: Appearance.colors.onPrimaryContainer
+            y: (root.height - height) * slider.visualPosition
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            Text {
+                id: label
                 color: Appearance.colors.primaryContainer
-
-                Rectangle {
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        bottom: parent.bottom
-                    }
-                    height: parent.height - handle.y - handle.height / 2
-                    color: Appearance.colors.primary
-                }
+                font.family: Appearance.font
+                text: Math.round(OsdManager.volume * 100) + "%"
+                anchors.centerIn: parent
             }
 
-            handle: Rectangle {
-                id: handle
-                width: parent.width
-                height: width
-                radius: width / 2
-                color: Appearance.colors.onPrimaryContainer
-                // Use visualPosition safely in clip coordinates
-                y: (clipRect.height - height) * slider.visualPosition
-                anchors.horizontalCenter: parent.horizontalCenter
+            VolumeUp {
+                id: volumeUpIcon
+                iconOpacity: 0
+                iconSize: Appearance.tokens.iconSize.sm
+                anchors.centerIn: parent
+                fillColor: Appearance.colors.primaryContainer
+            }
 
-                Text {
-                    id: label
-                    color: Appearance.colors.primaryContainer
-                    font.family: Appearance.font
-                    text: Math.round(slider.value * 100) + "%"
-                    anchors.centerIn: parent
-                }
+            VolumeDown {
+                id: volumeDownIcon
+                iconOpacity: 0
+                iconSize: Appearance.tokens.iconSize.sm
+                anchors.centerIn: parent
+                fillColor: Appearance.colors.primaryContainer
+            }
 
-                VolumeUp {
-                    id: volumeUpIcon
-                    iconOpacity: 0
-                    anchors.centerIn: parent
-                    fillColor: Appearance.colors.primaryContainer
-                }
-
-                VolumeDown {
-                    id: volumeDownIcon
-                    iconOpacity: 0
-                    anchors.centerIn: parent
-                    fillColor: Appearance.colors.primaryContainer
-                }
-
-                Mute {
-                    id: muteIcon
-                    iconOpacity: 0
-                    anchors.centerIn: parent
-                    fillColor: Appearance.colors.primaryContainer
-                }
+            Mute {
+                id: muteIcon
+                iconOpacity: 0
+                iconSize: Appearance.tokens.iconSize.sm
+                anchors.centerIn: parent
+                fillColor: Appearance.colors.primaryContainer
             }
         }
     }

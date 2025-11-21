@@ -10,9 +10,9 @@ Singleton {
     property string font: myfont.name
     property int fontSize: 12
     property string colorsPath: Quickshell.shellDir + "/colors/material-colors.json"
-    property string metricsPath: Quickshell.shellDir + "/config/Metrics.json"
+    property string metricsPath: Quickshell.shellDir + "/config/tokens.json"
     readonly property var colors: JSON.parse(jsonFile.text())
-    readonly property var metrics: JSON.parse(metricsFile.text())
+    readonly property var tokens: JSON.parse(metricsFile.text())
 
     FileView {
         id: metricsFile
@@ -32,6 +32,5 @@ Singleton {
     FontLoader {
         id: myfont
         source: Qt.resolvedUrl(Quickshell.shellDir + "/assets/fonts/Quicksand.ttf")
-        // source: "Jet BrainMono"
     }
 }

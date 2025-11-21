@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
+WALLPAPER_DIR="$HOME/dotfiles/dots-extra/Wallpapers"
 MATERIAL_COLOR_JSON="$HOME/.config/quickshell/colors/material-colors.json"
 KITTY_COLOR_CONF="$HOME/.config/kitty/material_colors.conf"
 TEMP_TERMINAL_JSON="/tmp/terminal-colors.json"

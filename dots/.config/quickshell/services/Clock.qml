@@ -6,8 +6,8 @@ import Quickshell.Io
 
 Singleton {
     id: clockSingleton
-    property string time: ""
-    property string date: ""
+    property string time: "00:00"
+    property string date: "Mon, 01 Apr"
 
     Process {
         id: dateProc

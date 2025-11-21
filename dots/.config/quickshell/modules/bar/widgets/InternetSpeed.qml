@@ -1,43 +1,41 @@
 import QtQuick
 import qs.config
-import qs.assets.icons
 import qs.services
 
 Rectangle {
-    implicitHeight: parent.height * 0.75
+    id: root
+    anchors.verticalCenter: parent.verticalCenter
     implicitWidth: 100
-    radius: 32
+    implicitHeight: parent.height * 0.8
+    radius: Appearance.tokens.common.radius.full
+    property var network: Network.getSpeed()
     color: Appearance.colors.surfaceContainer
 
-    Row {
-        anchors.centerIn: parent
-        spacing: 8
-
-        Column {
-            anchors.verticalCenter: parent.verticalCenter
-            spacing: 0
-            property var network: Network.getSpeed()
-            Text {
-                text: parent.network.speed ?? "0.0"
-                anchors.horizontalCenter: parent.horizontalCenter
-                color: Appearance.colors.onSurface
-                font.family: Appearance.font
-                width: implicitWidth
-                font.pixelSize: Appearance.metrics.common.fontSize.small
-            }
-            Text {
-                text: parent.network.unit ?? "KB/s"
-                color: Appearance.colors.onSurface
-                font.family: Appearance.font
-                font.pixelSize: 12
-                width: implicitWidth
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
+    Text {
+        id: speedText
+        text: root.network.speed ?? "0.0"
+        color: Appearance.colors.onSurface
+        font.family: Appearance.font
+        font.pixelSize: Appearance.tokens.common.fontSize.md
+        font.weight: Appearance.tokens.common.fontWeight.thin
+        anchors {
+            verticalCenter: parent.verticalCenter
+            left: parent.left
+            leftMargin: Appearance.tokens.common.spacing.xl
         }
-
-        Download {
-            iconOpacity: 0.7
-            anchors.verticalCenter: parent.verticalCenter
+    }
+    Text {
+        id: unitText
+        text: root.network.unit ?? "KB/s"
+        color: Appearance.colors.onSurface
+        font.family: Appearance.font
+        font.pixelSize: Appearance.tokens.common.fontSize.md
+        anchors {
+            verticalCenter: parent.verticalCenter
+            right: parent.right
+            rightMargin: Appearance.tokens.common.spacing.lg
         }
+        font.weight: Appearance.tokens.common.fontWeight.light
+        width: implicitWidth
     }
 }
