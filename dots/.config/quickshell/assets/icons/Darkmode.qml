@@ -4,12 +4,10 @@ import QtQuick.Shapes
 Item {
     id: __qt_toplevel
     property int iconSize: 24
-    property color fillColor: "#ffe3e3e3"
     property color strokeColor: "transparent"
-
-    implicitHeight: iconSize
+    property color fillColor: "#ffe3e3e3"
     implicitWidth: iconSize
-
+    implicitHeight: iconSize
     component AnimationsInfo: QtObject {
         property bool paused: false
         property int loops: 1
@@ -30,7 +28,6 @@ Item {
         id: _qt_node0
         preferredRendererType: Shape.CurveRenderer
         opacity: __qt_toplevel.opacity
-
         ShapePath {
             id: _qt_shapePath_0
             strokeColor: __qt_toplevel.strokeColor
@@ -38,7 +35,7 @@ Item {
             fillRule: ShapePath.WindingFill
             pathHints: ShapePath.PathQuadratic | ShapePath.PathNonIntersecting | ShapePath.PathNonOverlappingControlPointTriangles
             PathSvg {
-                path: "M 480 -80 Q 397 -80 324 -111.5 Q 251 -143 197 -197 Q 143 -251 111.5 -324 Q 80 -397 80 -480 Q 80 -564 111.5 -636.5 Q 143 -709 197 -763 L 253 -707 Q 209 -663 184.5 -605 Q 160 -547 160 -480 Q 160 -346 253 -253 Q 346 -160 480 -160 Q 614 -160 707 -253 Q 800 -346 800 -480 Q 800 -547 775.5 -605 Q 751 -663 707 -707 L 763 -763 Q 817 -709 848.5 -636.5 Q 880 -564 880 -480 Q 880 -397 848.5 -324 Q 817 -251 763 -197 Q 709 -143 636 -111.5 Q 563 -80 480 -80 M 440 -440 L 440 -880 L 520 -880 L 520 -440 L 440 -440 "
+                path: "M 480 -120 Q 330 -120 225 -225 Q 120 -330 120 -480 Q 120 -630 225 -735 Q 330 -840 480 -840 Q 494 -840 507.5 -839 Q 521 -838 534 -836 Q 493 -807 468.5 -760.5 Q 444 -714 444 -660 Q 444 -570 507 -507 Q 570 -444 660 -444 Q 715 -444 761 -468.5 Q 807 -493 836 -534 Q 838 -521 839 -507.5 Q 840 -494 840 -480 Q 840 -330 735 -225 Q 630 -120 480 -120 M 480 -200 Q 568 -200 638 -248.5 Q 708 -297 740 -375 Q 720 -370 700 -367 Q 680 -364 660 -364 Q 537 -364 450.5 -450.5 Q 364 -537 364 -660 Q 364 -680 367 -700 Q 370 -720 375 -740 Q 297 -708 248.5 -638 Q 200 -568 200 -480 Q 200 -364 282 -282 Q 364 -200 480 -200 "
             }
         }
     }

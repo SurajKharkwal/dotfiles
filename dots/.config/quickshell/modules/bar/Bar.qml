@@ -3,6 +3,7 @@ import Quickshell
 import qs.modules.corner
 import qs.config
 import qs.assets.icons
+import Quickshell.Widgets
 import "./widgets"
 
 Variants {
@@ -21,9 +22,6 @@ Variants {
         exclusiveZone: barHeight - roundCornerSize
         implicitHeight: barHeight
         color: "transparent"
-        Component.onCompleted: {
-            console.log("PanelWindow completed", Screen.pixelDensity);
-        }
 
         MouseArea {
             id: mouseArea
@@ -91,10 +89,11 @@ Variants {
                 }
             }
 
-            InternetSpeed {
+            Actions {
+                height: parent.height * 0.8
                 anchors {
                     right: centerControl.left
-                    rightMargin: Appearance.tokens.common.spacing.sm
+                    rightMargin: -Appearance.tokens.common.spacing["2xl"]
                     verticalCenter: parent.verticalCenter
                 }
             }
@@ -107,6 +106,12 @@ Variants {
                     right: parent.right
                     rightMargin: Appearance.tokens.common.spacing.md
                     verticalCenter: parent.verticalCenter
+                }
+
+                InternetSpeed {
+                    anchors {
+                        verticalCenter: parent.verticalCenter
+                    }
                 }
 
                 WifiStrong {
@@ -124,12 +129,18 @@ Variants {
                         verticalCenter: parent.verticalCenter
                     }
                 }
-                Power {
-                    id: icon
-                    fillColor: Appearance.colors.error
-                    iconSize: Appearance.tokens.common.iconSize.lg
-                    anchors {
-                        verticalCenter: parent.verticalCenter
+                WrapperMouseArea {
+                    cursorShape: Qt.PointingHandCursor
+                    anchors.verticalCenter: parent.verticalCenter
+                    onClicked: Quickshell.execDetached(["systemctl", "poweroff"])
+                    Power {
+                        id: icon
+                        fillColor: Appearance.colors.error
+                        iconSize: Appearance.tokens.common.iconSize.lg
+
+                        anchors {
+                            verticalCenter: parent.verticalCenter
+                        }
                     }
                 }
             }

@@ -28,7 +28,7 @@ Rectangle {
                 verticalCenter: parent.verticalCenter
             }
             delegate: Rectangle {
-                color: Appearance.colors.primaryContainer
+                color: Appearance.colors.surfaceContainerHigh
                 anchors {
                     verticalCenter: parent.verticalCenter
                     left: parent.left

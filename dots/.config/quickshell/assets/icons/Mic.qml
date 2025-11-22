@@ -4,12 +4,10 @@ import QtQuick.Shapes
 Item {
     id: __qt_toplevel
     property int iconSize: 24
-    property color fillColor: "#ffe3e3e3"
     property color strokeColor: "transparent"
-
-    implicitHeight: iconSize
+    property color fillColor: "#ffe3e3e3"
     implicitWidth: iconSize
-
+    implicitHeight: iconSize
     component AnimationsInfo: QtObject {
         property bool paused: false
         property int loops: 1
@@ -30,7 +28,6 @@ Item {
         id: _qt_node0
         preferredRendererType: Shape.CurveRenderer
         opacity: __qt_toplevel.opacity
-
         ShapePath {
             id: _qt_shapePath_0
             strokeColor: __qt_toplevel.strokeColor
@@ -38,7 +35,7 @@ Item {
             fillRule: ShapePath.WindingFill
             pathHints: ShapePath.PathQuadratic | ShapePath.PathNonIntersecting | ShapePath.PathNonOverlappingControlPointTriangles
             PathSvg {
-                path: "M 480 -80 Q 397 -80 324 -111.5 Q 251 -143 197 -197 Q 143 -251 111.5 -324 Q 80 -397 80 -480 Q 80 -564 111.5 -636.5 Q 143 -709 197 -763 L 253 -707 Q 209 -663 184.5 -605 Q 160 -547 160 -480 Q 160 -346 253 -253 Q 346 -160 480 -160 Q 614 -160 707 -253 Q 800 -346 800 -480 Q 800 -547 775.5 -605 Q 751 -663 707 -707 L 763 -763 Q 817 -709 848.5 -636.5 Q 880 -564 880 -480 Q 880 -397 848.5 -324 Q 817 -251 763 -197 Q 709 -143 636 -111.5 Q 563 -80 480 -80 M 440 -440 L 440 -880 L 520 -880 L 520 -440 L 440 -440 "
+                path: "M 480 -400 Q 430 -400 395 -435 Q 360 -470 360 -520 L 360 -760 Q 360 -810 395 -845 Q 430 -880 480 -880 Q 530 -880 565 -845 Q 600 -810 600 -760 L 600 -520 Q 600 -470 565 -435 Q 530 -400 480 -400 M 440 -120 L 440 -243 Q 336 -257 268 -336 Q 200 -415 200 -520 L 280 -520 Q 280 -437 338.5 -378.5 Q 397 -320 480 -320 Q 563 -320 621.5 -378.5 Q 680 -437 680 -520 L 760 -520 Q 760 -415 692 -336 Q 624 -257 520 -243 L 520 -120 L 440 -120 M 480 -480 Q 497 -480 508.5 -491.5 Q 520 -503 520 -520 L 520 -760 Q 520 -777 508.5 -788.5 Q 497 -800 480 -800 Q 463 -800 451.5 -788.5 Q 440 -777 440 -760 L 440 -520 Q 440 -503 451.5 -491.5 Q 463 -480 480 -480 "
             }
         }
     }

@@ -6,10 +6,8 @@ Item {
     property int iconSize: 24
     property color fillColor: "#ffe3e3e3"
     property color strokeColor: "transparent"
-
-    implicitHeight: iconSize
     implicitWidth: iconSize
-
+    implicitHeight: iconSize
     component AnimationsInfo: QtObject {
         property bool paused: false
         property int loops: 1
@@ -30,7 +28,6 @@ Item {
         id: _qt_node0
         preferredRendererType: Shape.CurveRenderer
         opacity: __qt_toplevel.opacity
-
         ShapePath {
             id: _qt_shapePath_0
             strokeColor: __qt_toplevel.strokeColor
@@ -38,7 +35,7 @@ Item {
             fillRule: ShapePath.WindingFill
             pathHints: ShapePath.PathQuadratic | ShapePath.PathNonIntersecting | ShapePath.PathNonOverlappingControlPointTriangles
             PathSvg {
-                path: "M 480 -80 Q 397 -80 324 -111.5 Q 251 -143 197 -197 Q 143 -251 111.5 -324 Q 80 -397 80 -480 Q 80 -564 111.5 -636.5 Q 143 -709 197 -763 L 253 -707 Q 209 -663 184.5 -605 Q 160 -547 160 -480 Q 160 -346 253 -253 Q 346 -160 480 -160 Q 614 -160 707 -253 Q 800 -346 800 -480 Q 800 -547 775.5 -605 Q 751 -663 707 -707 L 763 -763 Q 817 -709 848.5 -636.5 Q 880 -564 880 -480 Q 880 -397 848.5 -324 Q 817 -251 763 -197 Q 709 -143 636 -111.5 Q 563 -80 480 -80 M 440 -440 L 440 -880 L 520 -880 L 520 -440 L 440 -440 "
+                path: "M 680 -80 L 680 -200 L 560 -200 L 560 -280 L 680 -280 L 680 -400 L 760 -400 L 760 -280 L 880 -280 L 880 -200 L 760 -200 L 760 -80 L 680 -80 M 200 -200 L 200 -400 L 280 -400 L 280 -280 L 400 -280 L 400 -200 L 200 -200 M 200 -560 L 200 -760 L 400 -760 L 400 -680 L 280 -680 L 280 -560 L 200 -560 M 680 -560 L 680 -680 L 560 -680 L 560 -760 L 760 -760 L 760 -560 L 680 -560 "
             }
         }
     }

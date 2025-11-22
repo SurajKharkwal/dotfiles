@@ -2,14 +2,12 @@ import QtQuick
 import qs.config
 import qs.services
 
-Rectangle {
+Item {
     id: root
     anchors.verticalCenter: parent.verticalCenter
-    implicitWidth: 100
+    implicitWidth: speedText.width + unitText.width
     implicitHeight: parent.height * 0.8
-    radius: Appearance.tokens.common.radius.full
     property var network: Network.getSpeed()
-    color: Appearance.colors.surfaceContainer
 
     Text {
         id: speedText
@@ -20,7 +18,7 @@ Rectangle {
         font.weight: Appearance.tokens.common.fontWeight.thin
         anchors {
             verticalCenter: parent.verticalCenter
-            left: parent.left
+            right: unitText.left
             leftMargin: Appearance.tokens.common.spacing.xl
         }
     }
@@ -33,7 +31,6 @@ Rectangle {
         anchors {
             verticalCenter: parent.verticalCenter
             right: parent.right
-            rightMargin: Appearance.tokens.common.spacing.lg
         }
         font.weight: Appearance.tokens.common.fontWeight.light
         width: implicitWidth

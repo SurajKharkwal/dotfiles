@@ -18,15 +18,13 @@ Rectangle {
     property bool isPluggedIn: isCharging || chargeState == UPowerDeviceState.PendingCharge
     property real percentage: UPower.displayDevice?.percentage ?? 1
 
-    visible: available
-
     Row {
         spacing: Appearance.tokens.common.spacing.sm
         anchors.fill: parent
         padding: Appearance.tokens.common.spacing.sm
         Text {
             id: text
-            text: root.percentage.toFixed(0) * 100 + "%"
+            text: (root.percentage * 100).toFixed(0) + "%"
             font.pixelSize: Appearance.tokens.common.fontSize.md
             anchors.verticalCenter: parent.verticalCenter
             color: Appearance.colors.onSurface

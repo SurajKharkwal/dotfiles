@@ -5,6 +5,7 @@ Variants {
     model: Quickshell.screens
 
     delegate: PanelWindow {
+        property ShellScreen modelData
         implicitHeight: 15
         exclusiveZone: 0
         color: "transparent"

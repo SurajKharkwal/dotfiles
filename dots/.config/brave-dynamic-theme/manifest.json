@@ -1,0 +1,33 @@
+
+{
+  "manifest_version": 3,
+  "name": "Material Dark Rose Theme",
+  "version": "1.0",
+  "description": "Material-based static theme",
+  "theme": {
+    "colors": {
+      "frame": [22,19,19],                     // #161313
+      "frame_inactive": [22,19,19],            // #161313
+
+      "toolbar": [30,27,27],                   // #1E1B1B
+      "toolbar_button_icon": [233,225,224],    // #E9E1E0
+
+      "tab_background_text": [233,225,224],    // #E9E1E0
+      "tab_text": [233,225,224],               // #E9E1E0
+
+      "bookmark_text": [233,225,224],          // #E9E1E0
+
+      "ntp_background": [22,19,19],            // #161313
+      "ntp_text": [233,225,224],               // #E9E1E0
+
+      "button_background": [60,56,56],         // #3C3838
+
+      "omnibox_background": [34,31,31],        // #221F1F
+      "omnibox_text": [233,225,224],           // #E9E1E0
+      "omnibox_border": [74,70,69],            // #4A4645
+
+      "omnibox_results_text": [233,225,224],   // #E9E1E0
+      "omnibox_results_background": [30,27,27] // #1E1B1B
+    }
+  }
+}

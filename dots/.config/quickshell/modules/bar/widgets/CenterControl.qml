@@ -13,7 +13,6 @@ Rectangle {
         text: Services.Clock.time + " " + Services.Clock.date
         color: Appearance.colors.onSurface
         leftPadding: 10
-        opacity: 0.8
         anchors {
             verticalCenter: parent.verticalCenter
         }
