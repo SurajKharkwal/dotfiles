@@ -35,7 +35,7 @@ Rectangle {
                     leftMargin: (modelData[0] - 1) * root.wsSize + root.anchors.leftMargin / 2
                 }
                 implicitWidth: root.wsSize * modelData.length
-                implicitHeight: root.wsSize
+                implicitHeight: modelData.length > 1 ? root.wsSize * 1.1 : root.wsSize
                 radius: width / 2
             }
         }

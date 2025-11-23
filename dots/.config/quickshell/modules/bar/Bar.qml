@@ -76,25 +76,26 @@ Variants {
                 }
             }
 
-            CenterControl {
-                id: centerControl
+            Row {
                 anchors.centerIn: parent
-            }
+                spacing: Appearance.tokens.common.spacing.lg
+                height: parent.height
 
-            Battery {
-                anchors {
-                    left: centerControl.right
-                    leftMargin: Appearance.tokens.common.spacing.xl
-                    verticalCenter: parent.verticalCenter
+                QuickactionLeft {
+                    id: quickactionLeft
+                    anchors.verticalCenter: parent.verticalCenter
                 }
-            }
-
-            Actions {
-                height: parent.height * 0.8
-                anchors {
-                    right: centerControl.left
-                    rightMargin: -Appearance.tokens.common.spacing["2xl"]
-                    verticalCenter: parent.verticalCenter
+                CenterControl {
+                    id: centerControl
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                Battery {
+                    id: battery
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                QuickactionRight {
+                    id: quickactionRight
+                    anchors.verticalCenter: parent.verticalCenter
                 }
             }
 

@@ -44,10 +44,6 @@ Scope {
                         easing.type: Easing.InOutQuad
                     }
                 }
-                border {
-                    width: 1
-                    color: Appearance.colors.outlineVariant
-                }
 
                 Search {
                     id: search

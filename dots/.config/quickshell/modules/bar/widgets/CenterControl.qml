@@ -4,10 +4,9 @@ import qs.services as Services
 
 Rectangle {
     color: Appearance.colors.surfaceContainerHigh
-    implicitWidth: time.width + ws.width
+    implicitWidth: childrenRect.width
     implicitHeight: parent.height * 0.8
     radius: Appearance.tokens.common.radius.full
-    anchors.centerIn: parent
     Text {
         id: time
         text: Services.Clock.time + " " + Services.Clock.date
