@@ -1,6 +1,4 @@
 import QtQuick
-import QtQuick.VectorImage
-import QtQuick.VectorImage.Helpers
 import QtQuick.Shapes
 
 Item {
@@ -32,8 +30,8 @@ Item {
         opacity: __qt_toplevel.opacity
         ShapePath {
             id: _qt_shapePath_0
-            strokeColor: "transparent"
-            fillColor: "#ffe3e3e3"
+            strokeColor: __qt_toplevel.strokeColor
+            fillColor: __qt_toplevel.fillColor
             fillRule: ShapePath.WindingFill
             pathHints: ShapePath.PathQuadratic | ShapePath.PathNonIntersecting | ShapePath.PathNonOverlappingControlPointTriangles
             PathSvg {

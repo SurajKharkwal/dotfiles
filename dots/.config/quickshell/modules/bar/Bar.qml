@@ -12,7 +12,7 @@ Variants {
         id: window
         property ShellScreen modelData
         // visible: modelData.name && Hyprland.focusedMonitor && modelData.name === Screen.name
-        property int barHeight: 64
+        property int barHeight: Screen.pixelDensity * 12
         property int roundCornerSize: 15
         anchors {
             top: true
@@ -23,12 +23,6 @@ Variants {
         implicitHeight: barHeight
         color: "transparent"
 
-        MouseArea {
-            id: mouseArea
-            hoverEnabled: true
-            anchors.fill: parent
-        }
-
         Rectangle {
             id: barBackground
             color: Appearance.colors.surface
@@ -37,12 +31,6 @@ Variants {
                 left: parent.left
                 right: parent.right
                 top: parent.top
-            }
-
-            Behavior on anchors.topMargin {
-                NumberAnimation {
-                    duration: 100
-                }
             }
 
             RoundCorner {

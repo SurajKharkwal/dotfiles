@@ -14,8 +14,8 @@ Row {
         color: Appearance.colors.surfaceContainer
         topLeftRadius: Appearance.tokens.common.radius.full
         bottomLeftRadius: Appearance.tokens.common.radius.full
-        topRightRadius: Appearance.tokens.common.radius.xs
-        bottomRightRadius: Appearance.tokens.common.radius.xs
+        topRightRadius: Appearance.tokens.common.radius.sm
+        bottomRightRadius: Appearance.tokens.common.radius.sm
         Dnd {
             id: darkmodeIcon
             fillColor: Appearance.colors.onSurface
@@ -29,10 +29,10 @@ Row {
         width: root.iconSize
         height: root.iconSize
         color: Appearance.colors.surfaceContainer
-        topLeftRadius: Appearance.tokens.common.radius.xs
-        bottomLeftRadius: Appearance.tokens.common.radius.xs
-        topRightRadius: Appearance.tokens.common.radius.xs
-        bottomRightRadius: Appearance.tokens.common.radius.xs
+        topLeftRadius: Appearance.tokens.common.radius.sm
+        bottomLeftRadius: Appearance.tokens.common.radius.sm
+        topRightRadius: Appearance.tokens.common.radius.sm
+        bottomRightRadius: Appearance.tokens.common.radius.sm
 
         Nightlight {
             id: screenshotIcon
@@ -47,8 +47,8 @@ Row {
         width: root.iconSize
         height: root.iconSize
         color: Appearance.colors.surfaceContainer
-        topLeftRadius: Appearance.tokens.common.radius.xs
-        bottomLeftRadius: Appearance.tokens.common.radius.xs
+        topLeftRadius: Appearance.tokens.common.radius.sm
+        bottomLeftRadius: Appearance.tokens.common.radius.sm
         topRightRadius: Appearance.tokens.common.radius.full
         bottomRightRadius: Appearance.tokens.common.radius.full
 

@@ -1,6 +1,7 @@
 import QtQuick
 import qs.config
 import qs.assets.icons
+import QtQuick.Controls
 
 Row {
     id: root
@@ -14,8 +15,8 @@ Row {
         color: Appearance.colors.surfaceContainer
         topLeftRadius: Appearance.tokens.common.radius.full
         bottomLeftRadius: Appearance.tokens.common.radius.full
-        topRightRadius: Appearance.tokens.common.radius.xs
-        bottomRightRadius: Appearance.tokens.common.radius.xs
+        topRightRadius: Appearance.tokens.common.radius.sm
+        bottomRightRadius: Appearance.tokens.common.radius.sm
 
         Screenshot {
             id: screenshotIcon
@@ -26,14 +27,14 @@ Row {
     }
 
     Rectangle {
-        id: mode
+        id: mic
         width: root.iconSize
         height: root.iconSize
         color: Appearance.colors.surfaceContainer
-        topLeftRadius: Appearance.tokens.common.radius.xs
-        bottomLeftRadius: Appearance.tokens.common.radius.xs
-        topRightRadius: Appearance.tokens.common.radius.xs
-        bottomRightRadius: Appearance.tokens.common.radius.xs
+        topLeftRadius: Appearance.tokens.common.radius.sm
+        bottomLeftRadius: Appearance.tokens.common.radius.sm
+        topRightRadius: Appearance.tokens.common.radius.sm
+        bottomRightRadius: Appearance.tokens.common.radius.sm
 
         Mic {
             id: micIcon
@@ -50,12 +51,12 @@ Row {
     }
 
     Rectangle {
-        id: mic
+        id: mode
         width: root.iconSize
         height: root.iconSize
         color: Appearance.colors.surfaceContainer
-        topLeftRadius: Appearance.tokens.common.radius.xs
-        bottomLeftRadius: Appearance.tokens.common.radius.xs
+        topLeftRadius: Appearance.tokens.common.radius.sm
+        bottomLeftRadius: Appearance.tokens.common.radius.sm
         topRightRadius: Appearance.tokens.common.radius.full
         bottomRightRadius: Appearance.tokens.common.radius.full
         Darkmode {

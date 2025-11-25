@@ -1,6 +1,4 @@
 import QtQuick
-import QtQuick.VectorImage
-import QtQuick.VectorImage.Helpers
 import QtQuick.Shapes
 
 Item {

@@ -9,7 +9,7 @@ Singleton {
     property string theme: "light"
     property string font: myfont.name
     property int fontSize: 12
-    property string colorsPath: Quickshell.shellDir + "/colors/material-colors.json"
+    property string colorsPath: Quickshell.env("HOME") + "/.local/state/m3/colors/m3-colors.json"
     property string metricsPath: Quickshell.shellDir + "/config/tokens.json"
     readonly property var colors: JSON.parse(jsonFile.text())
     readonly property var tokens: JSON.parse(metricsFile.text())
